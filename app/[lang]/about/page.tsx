@@ -5,7 +5,6 @@ const page = async ({ params }: { params: { lang: string } }) => {
   const { lang } = params;
 
   const dict = await getDictionary(lang as "en" | "ar");
-  console.log(dict)
 
   return (
     <div>

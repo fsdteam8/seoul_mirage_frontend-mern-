@@ -12,7 +12,7 @@ export default function BestSellers() {
     queryKey: ["bestSellers"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/best-selling-products`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/orders/best-selling-products`,
         {
           headers: {
             "Content-Type": "application/json",
