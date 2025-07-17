@@ -136,7 +136,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
           100
       ) || 0,
     images: productDetails.media.map(
-      (m) => `${process.env.NEXT_PUBLIC_API_URL}/${m.file_path}`
+      (m) => `${m.file_path}`
     ),
     description: productDetails.description || "No description available.",
     details: {

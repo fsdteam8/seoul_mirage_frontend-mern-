@@ -46,8 +46,8 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
 
       const params = new URLSearchParams({
         search: debouncedQuery,
-        status: "available",
-        paginate_count: "8",
+        // status: "available",
+        paginate_count: "20",
       })
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?${params}`, {
@@ -87,7 +87,7 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] p-0">
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto p-0">
         <DialogHeader className="p-6 pb-4 border-b">
           <DialogTitle className="sr-only">Search Products</DialogTitle>
           <div className="relative">
@@ -196,7 +196,7 @@ function SearchResultItem({
   product: SearchProduct
   onClick: () => void
 }) {
-  const imageUrl = product.media?.[0] ? `${process.env.NEXT_PUBLIC_API_URL}/${product.media[0].file_path}` : null
+  const imageUrl = product.media?.[0] ? `${product.media[0].file_path}` : null
 
   const isOutOfStock = product.status !== "available" || product.stock_quantity === 0
 
