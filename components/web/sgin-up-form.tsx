@@ -67,7 +67,7 @@ export default function SignUp({dict}:Props) {
   const mutation = useMutation({
     mutationFn: async (data: LoginFormData) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/register`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
         {
           method: "POST",
           headers: {

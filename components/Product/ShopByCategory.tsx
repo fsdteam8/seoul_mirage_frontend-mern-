@@ -36,7 +36,7 @@ function CategoryCard({ name, image,  }: Category) {
       <Image
         src={
           image
-            ? `${process.env.NEXT_PUBLIC_API_URL}/${image}`
+            ? `${image}`
             : "/asset/no-image.jpg"
         }
         alt={name}

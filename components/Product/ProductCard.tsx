@@ -44,45 +44,28 @@ export default function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     addItem({ ...product, quantity: 1 });
     e.preventDefault();
-    setShowModal(true); // Open the modal
-    // toast.success(`${product.name} has been added to your cart!`, {
-    //   duration: 2000,
-    //   position: "top-center",
-    //   style: {
-    //     backgroundColor: "#f5fff3",
-    //     color: "black",
-    //     fontSize: "16px",
-    //   },
-    // });
+    setShowModal(true); 
   };
 
   return (
     <>
-      <Link href={`/products/${product.id}`} className="block">
+      <Link href={`/products/${product?.id}`} className="block">
         <div
           className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group cursor-pointer"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <div className="relative aspect-square overflow-hidden">
-            {product?.media && (
-              <Image
-                src={
-                  product?.media[0]?.file_path
-                    ? `${process.env.NEXT_PUBLIC_API_URL}/${product?.media[0]?.file_path}`
-                    : "/asset/no-image.jpg"
-                }
-                alt={product.name || "Product Image"}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 25vw"
-              />
-            )}
+            <Image
+              src={product?.media?.[0]?.file_path || "/asset/no-image.jpg"}
+              alt={product?.name || "Product Image"}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
 
             <div
-              className={`absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 ${
-                isHovered ? "opacity-100" : "opacity-0"
-              }`}
+              className={`absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"
+                }`}
             >
               {product?.arrival_status !== "coming_soon" && (
                 <Button
@@ -98,36 +81,36 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           <div className="p-4">
             <p className="text-sm text-gray-600 mb-1">
-              {product.category?.name ?? "Uncategorized"}
+              {product?.category?.name ?? "Uncategorized"}
             </p>
             <h3 className="font-semibold text-lg mb-2 line-clamp-2">
-              {product.name}
+              {product?.name}
             </h3>
-           
-           {product?.arrival_status !== "coming_soon" &&(
-            <>
-            <p className="text-2xl font-bold mb-2">
-              <span className="text-[16px]">AED</span> {product.price}
-            </p>
-                <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <StarRating rating={Number(product?.reviews_avg_rating) || 0} />
-                <span className="text-sm font-medium">
-                  {product?.reviews_avg_rating !== undefined &&
-                  product?.reviews_avg_rating !== null
-                    ? String(product.reviews_avg_rating).slice(0, 3)
-                    : ""}
-                </span>
-              </div>
-              <span className="text-sm text-gray-600">
-                ({product.reviews_count ?? 0})
-              </span>
-            </div>
-            </>
-           )
 
-           }
-        
+            {product?.arrival_status !== "coming_soon" && (
+              <>
+                <p className="text-2xl font-bold mb-2">
+                  <span className="text-[16px]">AED</span> {product?.price}
+                </p>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
+                    <StarRating rating={Number(product?.reviews_avg_rating) || 0} />
+                    <span className="text-sm font-medium">
+                      {product?.reviews_avg_rating !== undefined &&
+                        product?.reviews_avg_rating !== null
+                        ? String(product?.reviews_avg_rating).slice(0, 3)
+                        : ""}
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-600">
+                    ({product?.reviews_count ?? 0})
+                  </span>
+                </div>
+              </>
+            )
+
+            }
+
           </div>
         </div>
       </Link>
@@ -145,27 +128,27 @@ export default function ProductCard({ product }: ProductCardProps) {
               <Image
                 src={
                   product?.media?.[0]?.file_path
-                    ? `${process.env.NEXT_PUBLIC_API_URL}/${product.media[0].file_path}`
+                    ? `${product?.media[0]?.file_path}`
                     : "/asset/no-image.jpg"
                 }
-                alt={product.name || "Product Image"}
+                alt={product?.name || "Product Image"}
                 fill
                 className="object-cover"
               />
             </div>
 
             <div className="flex-1 space-y-2">
-              <h3 className="text-lg font-semibold">{product.name}</h3>
+              <h3 className="text-lg font-semibold">{product?.name}</h3>
               <p className="text-gray-600">
-                Category: {product.category?.name ?? "Uncategorized"}
+                Category: {product?.category?.name ?? "Uncategorized"}
               </p>
               <p className="text-lg font-bold">
-                <span className="text-sm">AED</span> {product.price}
+                <span className="text-sm">AED</span> {product?.price}
               </p>
               <div className="mt-2">
                 <StarRating rating={Number(product?.reviews_avg_rating) || 0} />
                 <span className="text-sm text-gray-500 ml-2">
-                  ({product.reviews_count ?? 0} reviews)
+                  ({product?.reviews_count ?? 0} reviews)
                 </span>
               </div>
             </div>

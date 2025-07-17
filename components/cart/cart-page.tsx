@@ -46,7 +46,7 @@ export default function CartPage({ dict }: Props) {
                 <Image
                   src={
                     item?.media?.[0]?.file_path
-                      ? `${process.env.NEXT_PUBLIC_API_URL}/${item.media[0].file_path}`
+                      ? `${item.media[0].file_path}`
                       : "/placeholder.svg"
                   }
                   alt={item?.name || "Image"}

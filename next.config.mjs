@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
      images:{
-        domains: ['saul-mirage.scaleupdevagency.com','saul-mirage.scaleupdevagency.comuploads','res.cloudinary.com'],
+        domains: ['saul-mirage.scaleupdevagency.com','localhost','res-console.cloudinary.com','saul-mirage.scaleupdevagency.comuploads','res.cloudinary.com','saul-miraz-express.onrender.com'],
      }
 };
 
