@@ -34,6 +34,7 @@ interface Review {
     image: string;
   };
   created_at: string;
+  createdAt:string
 }
 
 interface ReviewsSectionProps {
@@ -284,7 +285,7 @@ export default function ProductReviews({ productId }: ReviewsSectionProps) {
                           {review.user.name}
                         </p>
                         <p>
-                          {new Date(review.created_at).toLocaleString("en-US", {
+                          {new Date(review.createdAt).toLocaleString("en-US", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",

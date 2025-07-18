@@ -253,7 +253,7 @@ export default function Footer({ lang, dict }: Props) {
               Skincare
             </h3>
             <ul>
-              {data?.Skincare.slice(0, 5).map((item) => (
+              {data?.Skincare?.slice(0, 5).map((item) => (
                 <li key={item.id}>
                   <Link
                     href={generateHref("category", item.name)}

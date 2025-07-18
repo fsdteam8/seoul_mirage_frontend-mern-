@@ -119,26 +119,26 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
     );
 
   const product = {
-    id: productDetails.id.toString(),
-    name: productDetails.name,
-    category: productDetails.category.name,
-    price: parseFloat(productDetails.price),
+    id: productDetails?.id?.toString(),
+    name: productDetails?.name,
+    category: productDetails?.category?.name,
+    price: parseFloat(productDetails?.price),
     originalPrice:
-      parseFloat(productDetails.cost_price) ||
-      parseFloat(productDetails.price) * 1.5,
+      parseFloat(productDetails?.cost_price) ||
+      parseFloat(productDetails?.price) * 1.5,
     rating: 4.5,
     reviews: productDetails?.reviews?.length || 0,
     discount:
       Math.round(
-        ((parseFloat(productDetails.cost_price || productDetails.price) -
-          parseFloat(productDetails.price)) /
-          parseFloat(productDetails.cost_price || productDetails.price)) *
+        ((parseFloat(productDetails?.cost_price || productDetails?.price) -
+          parseFloat(productDetails?.price)) /
+          parseFloat(productDetails?.cost_price || productDetails?.price)) *
           100
       ) || 0,
-    images: productDetails.media.map(
+    images: productDetails?.media?.map(
       (m) => `${m.file_path}`
     ),
-    description: productDetails.description || "No description available.",
+    description: productDetails?.description || "No description available.",
     details: {
       "STRAIGHT UP": "A high-quality product designed for your needs.",
       "THE LOWDOWN": [
@@ -147,8 +147,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
         "Crafted with care.",
       ],
     },
-    stock_quantity: productDetails.stock_quantity,
-    status: productDetails.status,
+    stock_quantity: productDetails?.stock_quantity,
+    status: productDetails?.status,
   };
 
   // ✅ FIXED: Passing quantity into addItem
@@ -159,8 +159,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
       ...productDetails,
       quantity, // ✅ pass user-selected quantity
       status:
-        productDetails.status === "active" || productDetails.status === "inactive"
-          ? productDetails.status
+        productDetails?.status === "active" || productDetails?.status === "inactive"
+          ? productDetails?.status
           : "inactive",
     });
 
@@ -227,7 +227,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                   >
                     <Image
                       src={image || "/placeholder.svg"}
-                      alt={`${product.name} view ${index + 1}`}
+                      alt={`${product?.name} view ${index + 1}`}
                       width={80}
                       height={80}
                       className="w-full h-full object-cover"
@@ -238,8 +238,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
 
               <div className="flex-1 aspect-square rounded-lg overflow-hidden bg-gray-100">
                 <Image
-                  src={product.images[selectedImageIndex] || "/placeholder.svg"}
-                  alt={product.name}
+                  src={product?.images[selectedImageIndex] || "/placeholder.svg"}
+                  alt={product?.name}
                   width={600}
                   height={600}
                   className="w-full h-full object-cover"
@@ -249,8 +249,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
 
             <div className="lg:hidden aspect-square rounded-lg overflow-hidden bg-gray-100">
               <Image
-                src={product.images[selectedImageIndex] || "/placeholder.svg"}
-                alt={product.name}
+                src={product?.images[selectedImageIndex] || "/placeholder.svg"}
+                alt={product?.name}
                 width={600}
                 height={600}
                 className="w-full h-full object-cover"
@@ -262,7 +262,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl lg:text-3xl font-bold mb-2">
-                {product.name}
+                {product?.name}
               </h1>
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex items-center">
@@ -270,7 +270,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                     <Star
                       key={i}
                       className={`w-4 h-4 ${
-                        i < Math.floor(product.rating)
+                        i < Math.floor(product?.rating)
                           ? "fill-black text-black"
                           : "text-gray-300"
                       }`}
@@ -278,7 +278,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                   ))}
                 </div>
                 <span className="text-sm text-gray-600">
-                  {product.reviews} Reviews
+                  {product?.reviews} Reviews
                 </span>
               </div>
             </div>
@@ -286,17 +286,17 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
             <div className="flex items-center gap-3">
               <span className="text-3xl font-bold">
                 <span className="text-[16px]">AED</span>{" "}
-                {product.price.toFixed(2)}
+                {product?.price?.toFixed(2)}
               </span>
-              {product.originalPrice && (
+              {product?.originalPrice && (
                 <span className="text-lg text-gray-500 line-through">
                   <span className="text-[16px]">AED</span>{" "}
-                  {product.originalPrice.toFixed(2)}
+                  {product?.originalPrice?.toFixed(2)}
                 </span>
               )}
-              {product.discount > 0 && (
+              {product?.discount > 0 && (
                 <span className="text-sm text-green-600 font-medium">
-                  Save {product.discount}% right now
+                  Save {product?.discount}% right now
                 </span>
               )}
             </div>
@@ -305,7 +305,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
               <h3 className="text-lg font-semibold">Details</h3>
               <p className="text-gray-700">{product.description}</p>
 
-              {Object.entries(product.details).map(([key, value]) => (
+              {Object.entries(product?.details).map(([key, value]) => (
                 <div key={key}>
                   <h4 className="font-semibold mb-2">{key}</h4>
                   {Array.isArray(value) ? (
@@ -342,7 +342,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                     size="sm"
                     onClick={() => handleQuantityChange(1)}
                     className="px-3"
-                    disabled={product.stock_quantity <= quantity}
+                    disabled={product?.stock_quantity <= quantity}
                   >
                     <Plus className="w-4 h-4" />
                   </Button>
@@ -352,7 +352,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
               <Button
                 onClick={handleAddToCart}
                 className="w-full bg-black text-white hover:bg-gray-800 py-3 text-lg font-medium"
-                disabled={product.stock_quantity === 0}
+                disabled={product?.stock_quantity === 0}
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Add to Cart
