@@ -121,10 +121,10 @@ export default function AllProducts() {
         return a.price - b.price;
       case "Price: High to Low":
         return b.price - a.price;
-      case "Rating":
-        return b.rating - a.rating;
-      case "Name":
-        return a.name.localeCompare(b.name);
+      // case "Rating":
+      //   return b.rating - a.rating;
+      // case "Name":
+      //   return a.name.localeCompare(b.name);
       default:
         return 0;
     }
@@ -173,8 +173,8 @@ export default function AllProducts() {
                   <SelectItem value="Price: High to Low">
                     Price: High to Low
                   </SelectItem>
-                  <SelectItem value="Rating">Rating</SelectItem>
-                  <SelectItem value="Name">Name</SelectItem>
+                  {/* <SelectItem value="Rating">Rating</SelectItem>
+                  <SelectItem value="Name">Name</SelectItem> */}
                 </SelectContent>
               </Select>
             </div>

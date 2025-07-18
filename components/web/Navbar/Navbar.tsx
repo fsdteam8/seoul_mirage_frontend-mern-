@@ -60,7 +60,7 @@ export default function Navbar({ lang, dict }: Props) {
     queryKey: ["categoriesData"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/categories-by-type`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/categories/by-type`,
         {
           headers: {
             "Content-Type": "application/json",

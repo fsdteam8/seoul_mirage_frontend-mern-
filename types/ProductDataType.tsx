@@ -32,6 +32,7 @@ export interface PaginationLink {
 export interface Product {
   id: number;
   name: string;
+  arrival_status?:string
   description: string;
   image: string | null;
   price: string;
