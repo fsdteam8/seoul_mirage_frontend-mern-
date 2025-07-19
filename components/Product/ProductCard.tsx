@@ -44,7 +44,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     addItem({ ...product, quantity: 1 });
     e.preventDefault();
-    setShowModal(true); 
+    setShowModal(true);
   };
 
   return (
@@ -83,10 +83,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             <p className="text-sm text-gray-600 mb-1">
               {product?.category?.name ?? "Uncategorized"}
             </p>
-            <h3 className="font-semibold text-lg mb-2 line-clamp-2">
-              {product?.name}
+            {/* <h3 className="font-semibold text-lg mb-2 line-clamp-2">
+              {product?.name?.slice(0,50)}
+            </h3> */}
+            <h3 className="font-semibold text-lg mb-2">
+              {product?.name?.length > 60
+                ? product.name.slice(0, 60) + "..."
+                : product?.name}
             </h3>
-
             {product?.arrival_status !== "coming_soon" && (
               <>
                 <p className="text-2xl font-bold mb-2">

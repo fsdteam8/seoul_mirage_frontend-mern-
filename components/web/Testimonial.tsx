@@ -288,7 +288,7 @@ export default function TestimonialCarousel({ dict }: Props) {
                           <Image
                             src={
                               review?.user?.image
-                                ? review.user.image
+                                ? review?.user?.image
                                 : "/user.jpg"
                             }
                             alt={review?.user?.name}
@@ -298,7 +298,7 @@ export default function TestimonialCarousel({ dict }: Props) {
                         </div>
                         <div className="flex flex-col text-center sm:text-left">
                           <div className="flex justify-center sm:justify-start text-pink-500 mb-3">
-                            {[...Array(review.rating)].map((_, i) => (
+                            {[...Array(review?.rating)].map((_, i) => (
                               <svg
                                 key={i}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -311,10 +311,10 @@ export default function TestimonialCarousel({ dict }: Props) {
                             ))}
                           </div>
                           <p className="text-foreground text-base sm:text-lg font-medium leading-relaxed">
-                            {review.comment}
+                            {review?.comment}
                           </p>
                           <p className="font-medium text-muted-foreground text-sm pt-6">
-                            {review.user.name}
+                            {review?.user?.name}
                           </p>
                         </div>
                       </div>

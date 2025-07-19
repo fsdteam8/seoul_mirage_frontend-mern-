@@ -23,7 +23,7 @@ export default function ContactForm({ dict }: Props) {
   const mutation = useMutation({
     mutationFn: async (formData: FormData) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/conatct-mail`,
         {
           method: "POST",
           body: formData,

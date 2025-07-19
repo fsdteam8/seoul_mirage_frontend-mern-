@@ -74,7 +74,7 @@ export default function UserInformation() {
     queryKey: ["me"],
     enabled: !!token,
     queryFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -137,7 +137,7 @@ export default function UserInformation() {
       setValue("image", user.image || null);
 
       if (user.image && typeof user.image === "string") {
-        setPreviewImage(`${process.env.NEXT_PUBLIC_API_URL}/${user.image}`);
+        setPreviewImage(`${user.image}`);
       }
     }
   }, [user, setValue]);

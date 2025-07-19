@@ -57,6 +57,8 @@ export interface Product {
   name: string;
   description: string;
   image: string | null;
+  reviews_count: number
+  reviews_avg_rating: number
   price: string;
   category_id: number;
   status: string;
@@ -117,6 +119,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
         Error loading product details. Please try again later.
       </div>
     );
+  console.log(productDetails)
 
   const product = {
     id: productDetails?.id?.toString(),
@@ -126,14 +129,14 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
     originalPrice:
       parseFloat(productDetails?.cost_price) ||
       parseFloat(productDetails?.price) * 1.5,
-    rating: 4.5,
-    reviews: productDetails?.reviews?.length || 0,
+    rating: productDetails?.reviews_avg_rating || 4.5,
+    reviews: productDetails?.reviews_count || 0,
     discount:
       Math.round(
         ((parseFloat(productDetails?.cost_price || productDetails?.price) -
           parseFloat(productDetails?.price)) /
           parseFloat(productDetails?.cost_price || productDetails?.price)) *
-          100
+        100
       ) || 0,
     images: productDetails?.media?.map(
       (m) => `${m.file_path}`
@@ -195,11 +198,10 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
-                      selectedImageIndex === index
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${selectedImageIndex === index
                         ? "border-gray-900"
                         : "border-gray-200"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={image || "/placeholder.svg"}
@@ -219,11 +221,10 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                      selectedImageIndex === index
+                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${selectedImageIndex === index
                         ? "border-gray-900"
                         : "border-gray-200"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={image || "/placeholder.svg"}
@@ -269,11 +270,10 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-4 h-4 ${
-                        i < Math.floor(product?.rating)
+                      className={`w-4 h-4 ${i < Math.floor(product?.rating)
                           ? "fill-black text-black"
                           : "text-gray-300"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
