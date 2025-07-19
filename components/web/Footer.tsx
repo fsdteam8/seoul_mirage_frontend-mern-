@@ -20,7 +20,7 @@ const emailSchema = z.object({
 
 // API call
 const subscribeToNewsletter = async (formData: FormData) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
     method: "POST",
     body: formData,
   });

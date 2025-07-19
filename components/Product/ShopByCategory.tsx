@@ -6,7 +6,7 @@ import type {
 } from "@/types/CategoryTypeData";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Carousel,
   CarouselContent,
@@ -18,11 +18,13 @@ import { useCallback, useEffect, useState } from "react";
 import type { CarouselApi } from "@/components/ui/carousel";
 
 // Category Card Component
-function CategoryCard({ name, image,  }: Category) {
+function CategoryCard({ name, image, }: Category) {
   const router = useRouter();
+ const pathname = usePathname();
 
-  const handleClick = () => {
-    router.push(`/products?${name.toLowerCase().replace(/\s+/g, "-")}`);
+ const handleClick = () => {
+    const formatted = name?.toLowerCase().replace(/\s+/g, "-");
+    router.push(`${pathname}/products?${formatted}`);
   };
 
   return (
@@ -157,14 +159,12 @@ export default function ShopByCategory() {
 
               {/* Navigation arrows - only visible on hover */}
               <CarouselPrevious
-                className={`absolute left-4 top-1/2 -translate-y-1/2 transition-opacity duration-300 ${
-                  isHovered ? "opacity-100" : "opacity-0"
-                } bg-white/90 hover:bg-white border-gray-200 shadow-lg`}
+                className={`absolute left-4 top-1/2 -translate-y-1/2 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"
+                  } bg-white/90 hover:bg-white border-gray-200 shadow-lg`}
               />
               <CarouselNext
-                className={`absolute right-4 top-1/2 -translate-y-1/2 transition-opacity duration-300 ${
-                  isHovered ? "opacity-100" : "opacity-0"
-                } bg-white/90 hover:bg-white border-gray-200 shadow-lg`}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"
+                  } bg-white/90 hover:bg-white border-gray-200 shadow-lg`}
               />
             </Carousel>
 
@@ -173,11 +173,10 @@ export default function ShopByCategory() {
               {categoryData.map((_, index) => (
                 <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                    api?.selectedScrollSnap() === index
-                      ? "bg-gray-800"
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
+                  className={`w-2 h-2 rounded-full transition-colors duration-300 ${api?.selectedScrollSnap() === index
+                    ? "bg-gray-800"
+                    : "bg-gray-300 hover:bg-gray-400"
+                    }`}
                   onClick={() => api?.scrollTo(index)}
                 />
               ))}
