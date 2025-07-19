@@ -1,14 +1,14 @@
 // API functions for orders and checkout
 export interface OrderData {
-  full_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  full_address: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: string;
+  full_name?: string;
+  last_name?: string;
+  email?: string;
+  phone?: string;
+  full_address?: string;
+  city?: string;
+  state?: string;
+  postal_code?: string;
+  country?: string;
   type: string;
   items: string;
   status: string;
@@ -23,6 +23,15 @@ export interface OrderData {
     product_id: string;
     quantity: string;
   }>;
+  shipping_details: {
+    firstName: string
+    email: string
+    phone: string,
+    country:string
+    apartment?: string
+    state: string
+    postal: string
+  }
   promocode_name?: string;
 }
 
@@ -33,7 +42,8 @@ export interface OrderResponse {
 
 export interface CheckoutData {
   order_id: number;
-  email: string;
+  // email: string;
+  token: string
 }
 
 export interface CheckoutResponse {
@@ -67,20 +77,23 @@ export async function createOrder(
 export async function createCheckoutSession(
   checkoutData: CheckoutData
 ): Promise<CheckoutResponse> {
+
   const response = await fetch(`${API_BASE_URL}/api/stripe/checkout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${checkoutData?.token}`,
+
+
     },
-    body: JSON.stringify(checkoutData),
+    body: JSON.stringify({ order_id: checkoutData?.order_id }),
   });
-  console.log("response res" + response);
+
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    console.log(response);
     throw new Error(
       errorData.message ||
-        `Failed to create checkout session: ${response.status}`
+      `Failed to create checkout session: ${response.status}`
     );
   }
 

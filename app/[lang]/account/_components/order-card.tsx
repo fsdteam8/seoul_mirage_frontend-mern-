@@ -120,7 +120,7 @@ const OrderCard = () => {
 
             {/* Button */}
             <div>
-              <Link href={`/order/details/${order.uniq_id}`}>
+              <Link href={`/order/details/${order.id}`}>
                 <button className="w-full border rounded-md py-2 text-center text-gray-700 hover:bg-gray-100 transition">
                   View Order Details
                 </button>

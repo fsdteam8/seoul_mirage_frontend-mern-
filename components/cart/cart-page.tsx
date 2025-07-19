@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 import { useCartStore } from "@/store/cart-store";
 import { DictionaryType } from "@/dictionaries/dictionaries";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 // import { useState } from "react";
 
 interface Props {
@@ -14,9 +16,11 @@ interface Props {
 }
 
 export default function CartPage({ dict }: Props) {
+  const session = useSession();
+  const token = (session?.data?.user as { token: string })?.token || "";
   const { items, updateQuantity, removeItem, getTotalPrice } = useCartStore();
   const subtotal = getTotalPrice();
-
+  const router = useRouter()
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -29,7 +33,13 @@ export default function CartPage({ dict }: Props) {
       </div>
     );
   }
-
+  const handleClick = () => {
+    if (!token) {
+      router.push("/login");
+    } else {
+      router.push("/checkout");
+    }
+  };
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -133,12 +143,12 @@ export default function CartPage({ dict }: Props) {
                 </span>
               </div>
             </div>
-
-            <Link href="/checkout">
-              <Button className="w-full bg-black text-white hover:bg-gray-800">
-                {dict.cart.checkout}
-              </Button>
-            </Link>
+            <Button
+              className="w-full bg-black text-white hover:bg-gray-800"
+              onClick={handleClick}
+            >
+              {dict.cart.checkout}
+            </Button>
           </div>
         </div>
       </div>

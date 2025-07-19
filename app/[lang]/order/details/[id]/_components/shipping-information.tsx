@@ -33,17 +33,17 @@ export default function ShippingInformation({
         </div> */}
         <div className="flex justify-between">
           <span className="text-gray-700">Shipping</span>
-          <span className="font-medium">${shipping.toFixed(2)}</span>
+          <span className="font-medium">AED {shipping.toFixed(2)}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-700">TAX</span>
-          <span className="font-medium">${tax.toFixed(2)}</span>
+          <span className="font-medium">AED {tax.toFixed(2)}</span>
         </div>
         <div className="border-t pt-3 mt-3">
           <div className="flex justify-between">
             <span className="text-lg font-semibold text-gray-900">Total</span>
             <span className="text-lg font-semibold text-gray-900">
-              ${total.toFixed(2)}
+              AED {total.toFixed(2)}
             </span>
           </div>
         </div>

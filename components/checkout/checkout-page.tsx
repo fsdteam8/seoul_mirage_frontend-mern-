@@ -22,6 +22,7 @@ export default function CheckoutPage() {
   const [shippingMethod, setShippingMethod] = useState("standard");
 
   const subtotal = getTotalPrice();
+
   const shippingCosts = {
     standard: 5.99,
     express: 12.99,
