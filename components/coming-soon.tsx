@@ -12,7 +12,7 @@ export default function ComingSoon() {
     queryKey: ["comingsoon"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/products?paginate_count=4?arrival_status=coming_soon`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/products?paginate_count=4&arrival_status=coming_soon`
       );
       if (!res.ok) {
         throw new Error("Failed to fetch products");
