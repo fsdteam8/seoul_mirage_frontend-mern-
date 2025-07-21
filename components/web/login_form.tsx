@@ -48,7 +48,6 @@ export default function Login({ dict }: Props) {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    console.log("Form Data:", data);
     try {
       const res = await signIn("credentials", {
         email: data.email,
@@ -65,7 +64,7 @@ export default function Login({ dict }: Props) {
     } catch (error) {
       setIsLoading(false);
       console.log("Login error:", error);
-      toast.error("Login failed. Please check your credentials and try again.");
+      toast.error( "Login failed. Please check your credentials and try again.");
     } finally {
       setIsLoading(false);
     }

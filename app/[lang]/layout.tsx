@@ -10,6 +10,7 @@ import Providers from "@/components/Provider/providers";
 import Navbar from "@/components/web/Navbar/Navbar";
 import { Toaster } from "sonner";
 import { getDictionary } from "@/dictionaries/dictionaries";
+import ConsoleWarning from "@/components/ConsoleWarning";
 
 // Import Raleway font
 const newFont = Lora({
@@ -32,13 +33,14 @@ export default async function RootLayout({
 }>) {
   const { lang } = params;
   const dict = await getDictionary(lang as "en" | "ar");
-
+  
   return (
     <html lang="en" className={`${newFont.className} scroll-smooth`}>
       <body className={`${newFont.variable} antialiased`}>
         <Providers>
           <AuthProvider>
             <Navbar lang={lang} dict={dict} />
+            <ConsoleWarning/>
             {children}
             <Toaster position="top-right" />
             <Footer dict={dict} lang={lang} />

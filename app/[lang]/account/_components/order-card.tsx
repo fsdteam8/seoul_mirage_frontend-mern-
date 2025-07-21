@@ -90,7 +90,7 @@ const OrderCard = () => {
               <div className="space-y-1">
                 <p className="font-medium">Order #{order.id}</p>
                 <p className="text-gray-500 text-sm">
-                  {new Date(order.created_at).toLocaleDateString("en-US", {
+                  {new Date(order.createdAt).toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
                     year: "numeric",

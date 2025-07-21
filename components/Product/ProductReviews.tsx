@@ -207,7 +207,6 @@ export default function ProductReviews({ productId }: ReviewsSectionProps) {
   });
 
   const reviewData: Review[] = data?.data?.reviews || [];
-  console.log(reviewData);
   const averageRating =
     reviewData.length > 0
       ? reviewData.reduce((sum, review) => sum + review.rating, 0) /

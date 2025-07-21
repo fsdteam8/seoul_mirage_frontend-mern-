@@ -38,6 +38,7 @@ export interface Order {
   updated_at: string;
   promocode: Promocode | null;
   customer: Customer;
+  createdAt:Date
 }
 
 export interface PaginationLink {
