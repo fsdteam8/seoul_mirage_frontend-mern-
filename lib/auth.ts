@@ -102,11 +102,11 @@ export const authOptions: NextAuthOptions = {
         //   account.provider === "google"
         //     ? "/api/google/auth/jwt-process"
         //     : "/api/facebook/auth/jwt-process";
-        // console.log(profile);
         try {
           if (account.provider === "google") {
+
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/google/auth/jwt-process`,
+              `${process.env.NEXT_PUBLIC_API_URL}/api/auth/third-party/jwt-process`,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -120,10 +120,10 @@ export const authOptions: NextAuthOptions = {
             );
 
             const data = await res.json();
-      
 
+            console.log(data)
             if (!data?.token || !data?.user) {
-             
+
               return false;
             }
 
@@ -137,8 +137,9 @@ export const authOptions: NextAuthOptions = {
             user.updatedAt = data.user.updated_at;
             user.token = data.token;
           } else if (account.provider === "facebook") {
+            console.log(profile)
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/api/google/auth/jwt-process`,
+              `${process.env.NEXT_PUBLIC_API_URL}/api/auth/third-party/jwt-process`,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -152,7 +153,7 @@ export const authOptions: NextAuthOptions = {
             );
 
             const data = await res.json();
-         
+
 
             if (!data?.token || !data?.user) {
               console.error(`${account.provider} login failed:`, data);

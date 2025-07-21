@@ -40,6 +40,8 @@ export default function CartPage({ dict }: Props) {
       router.push("/checkout");
     }
   };
+
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -89,14 +91,22 @@ export default function CartPage({ dict }: Props) {
                       variant="outline"
                       size="sm"
                       onClick={() => {
-                        if (item.quantity < item.stock_quantity) {
+                        if (
+                          typeof item.stock_quantity === "number" &&
+                          item.quantity < item.stock_quantity
+                        ) {
                           updateQuantity(item.id, item.quantity + 1);
                         }
                       }}
-                      disabled={item.quantity >= item.stock_quantity}
+                      disabled={
+                        typeof item.stock_quantity === "number"
+                          ? item.quantity >= item.stock_quantity
+                          : false
+                      }
                     >
                       <Plus className="w-4 h-4" />
                     </Button>
+
                   </div>
                 </div>
 

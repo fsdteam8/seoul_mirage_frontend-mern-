@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShoppingBag, Star, StarHalf } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog"; // assuming ShadCN UI
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Product, useCartStore } from "@/store/cart-store";
-// import { toast } from "sonner";
+
 
 interface ProductCardProps {
   product: Product;
@@ -47,6 +47,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     setShowModal(true);
   };
 
+  const isBestSeller = Number(product?.reviews_avg_rating) === 5;
+  const createdTime = product.createdAt ? new Date(product.createdAt).getTime() : 0;
+
+  const isNewProduct = Date.now() - createdTime < 30 * 24 * 60 * 60 * 1000;
+
+
   return (
     <>
       <Link href={`/products/${product?.id}`} className="block">
@@ -63,6 +69,21 @@ export default function ProductCard({ product }: ProductCardProps) {
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
 
+            {/* Indicators */}
+            <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+              {isNewProduct && (
+                <span className="bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded">
+                  New
+                </span>
+              )}
+              {isBestSeller && (
+                <span className="bg-yellow-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                  Best Seller
+                </span>
+              )}
+            </div>
+
+            {/* Add to Cart Overlay */}
             <div
               className={`absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"
                 }`}
@@ -83,9 +104,6 @@ export default function ProductCard({ product }: ProductCardProps) {
             <p className="text-sm text-gray-600 mb-1">
               {product?.category?.name ?? "Uncategorized"}
             </p>
-            {/* <h3 className="font-semibold text-lg mb-2 line-clamp-2">
-              {product?.name?.slice(0,50)}
-            </h3> */}
             <h3 className="font-semibold text-lg mb-2">
               {product?.name?.length > 60
                 ? product.name.slice(0, 60) + "..."
@@ -111,10 +129,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   </span>
                 </div>
               </>
-            )
-
-            }
-
+            )}
           </div>
         </div>
       </Link>
