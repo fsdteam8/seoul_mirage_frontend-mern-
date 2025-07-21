@@ -1,6 +1,5 @@
 "use client";
 import { DictionaryType } from "@/dictionaries/dictionaries";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 interface Props {
@@ -8,10 +7,7 @@ interface Props {
 }
 
 export default function About_Section({ dict }: Props) {
-  const session = useSession();
-  const token = (session?.data?.user as { token: string })?.token || "";
 
-  console.log(token);
   return (
     <div className="w-full">
       {/* Our Story Section */}
@@ -20,13 +16,13 @@ export default function About_Section({ dict }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-[80px] items-center">
             <div className="order-2 lg:order-1">
               <h2 className="text-3xl sm:text-4xl lg:text-[60px] font-semibold text-[#000000CC] mb-6 lg:mb-[30px]">
-                {dict.about["Our-Story"].title1}{" "}
+                {dict?.about["Our-Story"].title1}{" "}
                 <span className="font-bold">
-                  {dict.about["Our-Story"].title2}
+                  {dict?.about["Our-Story"].title2}
                 </span>
               </h2>
               <p className="text-base sm:text-lg lg:text-[18px] text-[#000000CC]  leading-[120%] font-normal">
-                {dict.about["Our-Story"].desc}
+                {dict?.about["Our-Story"].desc}
               </p>
             </div>
             <div className="order-1 lg:order-2">
@@ -60,12 +56,12 @@ export default function About_Section({ dict }: Props) {
             </div>
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-[60px] font-medium text-gray-[#000000CC] mb-6 lg:mb-8">
-                {dict.about["Our-Journey"].title1}{" "}
-                {dict.about["Our-Journey"].title2}
+                {dict?.about["Our-Journey"].title1}{" "}
+                {dict?.about["Our-Journey"].title2}
               </h2>
               <div className="space-y-4 sm:space-y-6">
                 <p className="text-base sm:text-[24px] md:text-[18px] text-[#000000CC] leading-[120%] font-normal">
-                  {dict.about["Our-Journey"].desc}
+                  {dict?.about["Our-Journey"].desc}
                 </p>
                 {/* <p className="text-base sm:text-[24px] md:text-[18px] text-[#000000CC] leading-[120%] font-normal mt-[30px]">
                   What started as a passion project quickly gained recognition
@@ -81,43 +77,43 @@ export default function About_Section({ dict }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-[60px]  text-[#000000] font-medium mb-6 lg:mb-[60px]">
-                {dict.about["Our-Philosophy"].title1}
+                {dict?.about["Our-Philosophy"].title1}
               </h2>
               <p className="text-base sm:text-[24px] md:text-[18px] text-[#000000] leading-[120%] mb-8 lg:mb-12">
-                {dict.about["Our-Philosophy"].desc}
+                {dict?.about["Our-Philosophy"].desc}
               </p>
 
               <div className="space-y-6 lg:space-y-8">
                 <div className="border-l-4 border-[#000000] pl-4 sm:pl-6">
                   <h3 className="text-xl sm:text-[40px] font-semibold text-[#000000] mb-2 sm:mb-[30px]">
-                    {dict.about["Our-Philosophy"]["Curated-with-Purpose"].title}
+                    {dict?.about["Our-Philosophy"]["Curated-with-Purpose"].title}
                   </h3>
                   <p className="text-sm md:text-[18px] sm:text-xl text-[#000000] leading-[120%]">
-                    {dict.about["Our-Philosophy"]["Curated-with-Purpose"].desc}
+                    {dict?.about["Our-Philosophy"]["Curated-with-Purpose"].desc}
                   </p>
                 </div>
 
                 <div className="border-l-4 border-[#000000] pl-4 sm:pl-6">
                   <h3 className="text-xl sm:text-[40px] font-semibold text-[#000000] mb-2 sm:mb-[30px]">
                     {
-                      dict.about["Our-Philosophy"]["Powered-by-Innovation"]
+                      dict?.about["Our-Philosophy"]["Powered-by-Innovation"]
                         .title
                     }
                   </h3>
                   <p className="text-sm sm:text-xl md:text-[18px] text-[#000000] leading-[120%]">
-                    {dict.about["Our-Philosophy"]["Powered-by-Innovation"].desc}
+                    {dict?.about["Our-Philosophy"]["Powered-by-Innovation"].desc}
                   </p>
                 </div>
 
                 <div className="border-l-4 border-[#000000] pl-4 sm:pl-6">
                   <h3 className="text-xl sm:text-[40px] font-semibold text-[#000000] mb-2 sm:mb-4">
                     {
-                      dict.about["Our-Philosophy"]["Beauty-with-Intention"]
+                      dict?.about["Our-Philosophy"]["Beauty-with-Intention"]
                         .title
                     }
                   </h3>
                   <p className="text-sm sm:text-xl md:text-[18px] text-[#000000] leading-[120%]">
-                    {dict.about["Our-Philosophy"]["Beauty-with-Intention"].desc}
+                    {dict?.about["Our-Philosophy"]["Beauty-with-Intention"].desc}
                   </p>
                 </div>
               </div>

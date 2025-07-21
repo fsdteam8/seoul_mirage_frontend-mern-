@@ -13,45 +13,65 @@ import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ProductPageSkeleton } from "./ProductSkeleton";
 
-export default function AllProducts() {
-  const [selectedCategory, setSelectedCategory] = useState("All Product");
-  const [sortBy, setSortBy] = useState("Featured");
+// ✅ Types
+interface Category {
+  id: string;
+  name: string;
+}
 
+interface CategoryApiResponse {
+  data: {
+    data: Category[];
+  };
+}
+
+interface Product {
+  id: string;
+  category: {
+    id: string;
+    name: string;
+  };
+  name: string;
+  price: number;
+  rating: number;
+  reviews: number;
+  image: string;
+  images: string[];
+}
+
+interface ProductApiResponse {
+  data: {
+    data: Product[];
+    pagination: {
+      current_page: number;
+      last_page: number;
+      total: number;
+    };
+  };
+}
+
+export default function AllProducts() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All Product");
+  const [selecteRateing, setSelecteRateing] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("Featured");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const searchParams = useSearchParams();
 
-  const { data: category } = useQuery({
-    queryKey: ["productStats"],
+  // ✅ Fetch categories
+  const { data: categoryData } = useQuery<CategoryApiResponse>({
+    queryKey: ["productCategories"],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/categories`,
-        {
-          method: "GET",
-        }
-      );
-      if (!res.ok) throw new Error("Failed to fetch product stats");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
+      if (!res.ok) throw new Error("Failed to fetch categories");
       return res.json();
     },
   });
 
-  interface Category {
-    id: string;
-    name: string;
-  }
 
-  interface CategoryApiResponse {
-    data: {
-      data: Category[];
-    };
-  }
-
-  const categories = useMemo(() => {
-    return [
-      "All Product",
-      ...((category as CategoryApiResponse)?.data?.data?.map(
-        (cat: Category) => cat.name
-      ) || []),
-    ];
-  }, [category]);
+  const categories: string[] = useMemo(() => {
+    const serverCategories = categoryData?.data?.data ?? [];
+    return ["All Product", ...serverCategories.map((cat) => cat.name)];
+  }, [categoryData]);
 
   const normalizeCategoryKey = (str: string) =>
     str
@@ -75,114 +95,126 @@ export default function AllProducts() {
     }
   }, [searchParams, categories]);
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["allProducts"],
+
+  const { data, error, isLoading } = useQuery<ProductApiResponse>({
+    queryKey: ["allProducts", selectedCategory, currentPage, selecteRateing],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/products?paginate_count=20`
-      );
-      if (!res.ok) {
-        throw new Error("Failed to fetch product");
+      const params = new URLSearchParams();
+      params.append("page", currentPage.toString());
+      if (selectedCategory !== "All Product") {
+        params.append("category", selectedCategory);
       }
+      if (selecteRateing !== "All") {
+        params.append("rating", selecteRateing);
+      }
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/products?${params.toString()}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch product");
       return res.json();
     },
+
   });
 
-  if (isLoading) return <ProductPageSkeleton />;
-  if (error instanceof Error) return <p>Error: {error.message}</p>;
+  const products = useMemo(() => data?.data?.data ?? [], [data]);
+  const pagination = data?.data?.pagination;
 
-  const products = data?.data || [];
-
-  interface Product {
-    id: string;
-    category: {
-      id: string;
-      name: string;
-    };
-    name: string;
-    price: number;
-    rating: number;
-    reviews: number;
-    image: string;
-    images: string[];
-  }
-
-  const filteredProducts =
-    products &&
-    (products?.data as Product[]).filter(
-      (product: Product) =>
-        selectedCategory === "All Product" ||
-        product?.category?.name === selectedCategory
-    );
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
+  // ✅ Sort products
+  const sortedProducts = useMemo(() => {
+    const sorted = [...products];
     switch (sortBy) {
       case "Price: Low to High":
-        return a.price - b.price;
+        return sorted.sort((a, b) => a.price - b.price);
       case "Price: High to Low":
-        return b.price - a.price;
-      // case "Rating":
-      //   return b.rating - a.rating;
-      // case "Name":
-      //   return a.name.localeCompare(b.name);
+        return sorted.sort((a, b) => b.price - a.price);
       default:
-        return 0;
+        return sorted;
     }
-  });
+  }, [products, sortBy]);
+
+  // ✅ Loading / error state
+  if (isLoading) return <ProductPageSkeleton />;
+  if (error instanceof Error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="min-h-screen">
       {/* Category Navigation */}
-      <div className="bg-[#F5E6D3] border-b border-gray-200">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div
-              className="flex space-x-6 overflow-x-auto px-4 scrollbar-hide scroll-snap-x"
-              role="tablist"
-              aria-label="Product Categories"
-            >
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap scroll-snap-align-start ${selectedCategory === category
-                      ? "text-black border-b-2 border-black pb-1"
-                      : "text-gray-600 hover:text-black"
-                    }`}
-                  role="tab"
-                  aria-selected={selectedCategory === category}
-                  tabIndex={selectedCategory === category ? 0 : -1}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
 
-            {/* Sort dropdown with responsive smaller width on mobile */}
-            <div className="flex items-center space-x-1 sm:space-x-2">
-              <span className="text-sm font-medium hidden md:block">Sort:</span>
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-28 sm:w-40 bg-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Featured">Featured</SelectItem>
-                  <SelectItem value="Price: Low to High">
-                    Price: Low to High
-                  </SelectItem>
-                  <SelectItem value="Price: High to Low">
-                    Price: High to Low
-                  </SelectItem>
-                  {/* <SelectItem value="Rating">Rating</SelectItem>
-                  <SelectItem value="Name">Name</SelectItem> */}
-                </SelectContent>
-              </Select>
+
+
+      <div className="bg-[#F5E6D3] border-b border-gray-200">
+        <div className="container mx-auto px-4 py-6 space-y-4 lg:flex lg:justify-between ">
+          {/* Categories Scrollable */}
+          <div
+            className="flex space-x-6 overflow-x-auto px-1 sm:px-4 scrollbar-hide scroll-snap-x"
+            role="tablist"
+            aria-label="Product Categories"
+          >
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setCurrentPage(1);
+                }}
+                className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap scroll-snap-align-start ${selectedCategory === category
+                    ? "text-black border-b-2 border-black pb-1"
+                    : "text-gray-600 hover:text-black"
+                  }`}
+                role="tab"
+                aria-selected={selectedCategory === category}
+                tabIndex={selectedCategory === category ? 0 : -1}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Filters */}
+          <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between gap-4">
+            {/* Rating + Sort (Group them for smaller layout) */}
+            <div className="flex flex-wrap items-center gap-4">
+              {/* Rating Filter */}
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium hidden md:block">Rating:</span>
+                <Select value={selecteRateing} onValueChange={setSelecteRateing}>
+                  <SelectTrigger className="w-28 sm:w-40 bg-white">
+                    <SelectValue placeholder="All" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="5">5</SelectItem>
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="3">3</SelectItem>
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="1">1</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Sort Filter */}
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium hidden md:block">Sort:</span>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-28 sm:w-40 bg-white">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Featured">Featured</SelectItem>
+                    <SelectItem value="Price: Low to High">Price: Low to High</SelectItem>
+                    <SelectItem value="Price: High to Low">Price: High to Low</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Products Grid */}
+
+      {/* Product Grid */}
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {sortedProducts.length > 0 ? (
@@ -195,6 +227,33 @@ export default function AllProducts() {
             </div>
           )}
         </div>
+
+        {/* Pagination Controls */}
+        {pagination && (
+          <div className="flex justify-center items-center mt-10 space-x-4">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={pagination.current_page === 1}
+              className="px-4 py-2 border rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="text-sm text-gray-600">
+              Page {pagination.current_page} of {pagination.last_page}
+            </span>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) =>
+                  Math.min(prev + 1, pagination.last_page)
+                )
+              }
+              disabled={pagination.current_page === pagination.last_page}
+              className="px-4 py-2 border rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

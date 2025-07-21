@@ -39,7 +39,7 @@ export default function ContactForm({ dict }: Props) {
     },
 
     onSuccess: (data) => {
-      toast.success(data.message || "Product created successfully");
+      toast.success(data.message || " Thank you for contacting us!");
       setFormData({ name: "", email: "", message: "" }); // Reset form
     },
 

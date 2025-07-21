@@ -42,7 +42,7 @@ interface Props {
 }
 
 
-export default function SignUp({dict}:Props) {
+export default function SignUp({ dict }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -65,6 +65,7 @@ export default function SignUp({dict}:Props) {
     }
   };
   const mutation = useMutation({
+
     mutationFn: async (data: LoginFormData) => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
@@ -77,28 +78,25 @@ export default function SignUp({dict}:Props) {
         }
       );
 
-      if (!res.ok) {
-        const error = await res.json();
-        toast.error(error.message || "Registration failed");
-        // throw new Error(error.message || "Registration failed");
-      }
-
       const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.error || "Registration failed");
+      }
 
       return result;
     },
+
     onSuccess: (data) => {
       toast.success(data.message || "Registration successful!");
       router.push("/login");
     },
     onError: (error: Error) => {
-      console.error("Registration error:", error);
       toast.error(error.message || "An error occurred during registration");
     },
   });
 
   const onSubmit = (data: LoginFormData) => {
-    console.log("Form Data:", data);
     mutation.mutate(data);
   };
 
@@ -174,7 +172,7 @@ export default function SignUp({dict}:Props) {
                   htmlFor="name"
                   className="text-sm font-normal text-gray-700"
                 >
-                     {dict.signup.fullname}
+                  {dict.signup.fullname}
                 </Label>
                 <Input id="name" type="text" {...register("name")} />
                 {errors.name && (
@@ -202,7 +200,7 @@ export default function SignUp({dict}:Props) {
                   htmlFor="password"
                   className="text-sm font-normal text-gray-700"
                 >
-                 {dict.signup.password}
+                  {dict.signup.password}
                 </Label>
                 <div className="relative">
                   <Input
@@ -272,7 +270,7 @@ export default function SignUp({dict}:Props) {
                     htmlFor="remember-me"
                     className="text-sm font-normal text-gray-700 cursor-pointer"
                   >
-                   {dict.signup.tmc}
+                    {dict.signup.tmc}
                   </Label>
                 </div>
               </div>
@@ -282,7 +280,7 @@ export default function SignUp({dict}:Props) {
                 type="submit"
                 className="w-full h-11 bg-black hover:bg-gray-800 text-white"
               >
-             {dict.signup.sginup}
+                {dict.signup.sginup}
               </Button>
             </div>
           </div>
@@ -324,7 +322,7 @@ export default function SignUp({dict}:Props) {
               href="/login"
               className="text-gray-900 hover:text-gray-700 underline"
             >
-             {dict.signup.sgin}
+              {dict.signup.sgin}
             </Link>
           </div>
         </form>
