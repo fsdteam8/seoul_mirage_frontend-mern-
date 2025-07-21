@@ -66,7 +66,6 @@ export default function ChangePassword() {
       return response.json();
     },
     onSuccess: (data) => {
-      console.log("Password updated successfully:", data);
       signOut();
       router.push("/login");
       toast(data.message || "Password updated successfully");
@@ -78,7 +77,6 @@ export default function ChangePassword() {
   });
 
   const onSubmit = (data: ChangePasswordFormValues) => {
-    console.log("Changing password with:", data);
     const formData = new FormData();
     formData.append("current_password", data.currentPassword);
     formData.append("password", data.newPassword);

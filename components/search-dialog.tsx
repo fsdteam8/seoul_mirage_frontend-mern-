@@ -161,10 +161,10 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
               {hasResults && !isLoading && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between mb-4">
-                    <p className="text-sm text-gray-600">{searchResults?.total || 0} products found</p>
-                    {searchResults?.total_pages && searchResults.total_pages > 1 && (
+                    <p className="text-sm text-gray-600">{searchResults?.data?.pagination?.total || 0} products found</p>
+                    {searchResults?.data.pagination.last_page && searchResults.data.pagination.last_page > 1 && (
                       <p className="text-xs text-gray-500">
-                        Showing page {searchResults.current_page} of {searchResults.total_pages}
+                        Showing page {searchResults.data.pagination.current_page} of {searchResults.data.pagination.last_page}
                       </p>
                     )}
                   </div>

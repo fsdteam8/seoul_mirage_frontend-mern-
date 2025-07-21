@@ -110,7 +110,7 @@ export default function Navbar({ lang, dict }: Props) {
                   <NavigationMenuContent>
                     <div className="grid grid-cols-2 gap-4 p-4 w-[400px]">
                       {isLoading ? (
-                        <div>Loading...</div>
+                        <div >Loading...</div>
                       ) : (
                         data?.Skincare?.map((item) => (
                           <NavigationMenuLink key={item.id} asChild>

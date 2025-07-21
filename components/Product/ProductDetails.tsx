@@ -119,7 +119,6 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
         Error loading product details. Please try again later.
       </div>
     );
-  console.log(productDetails)
 
   const product = {
     id: productDetails?.id?.toString(),
@@ -129,7 +128,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
     originalPrice:
       parseFloat(productDetails?.cost_price) ||
       parseFloat(productDetails?.price) * 1.5,
-    rating: productDetails?.reviews_avg_rating || 4.5,
+    rating: productDetails?.reviews_avg_rating || 0,
     reviews: productDetails?.reviews_count || 0,
     discount:
       Math.round(
