@@ -64,14 +64,13 @@ export default function UserInformation() {
   const session = useSession();
   const token = (session?.data?.user as { token: string })?.token || "";
   
-  console.log(session?.data)
 
   const {
     data: meData,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["me"],
+    queryKey: ["mee"],
     enabled: !!token,
     queryFn: async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`, {

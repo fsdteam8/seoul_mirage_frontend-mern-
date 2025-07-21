@@ -66,6 +66,17 @@ const OrderCard = () => {
     );
   }
 
+  if (orderData.length === 0) {
+    return (
+      <Alert variant="destructive">
+        <AlertTitle>Not Found</AlertTitle>
+        <AlertDescription>
+          You have no order history available at the moment.
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
   return (
     <>
       <div className="space-y-6 ">
@@ -88,13 +99,12 @@ const OrderCard = () => {
               </div>
               <div className="flex flex-col sm:items-end sm:text-right mt-2 sm:mt-0">
                 <p
-                  className={`font-medium ${
-                    order.status === "Pending"
+                  className={`font-medium ${order.status === "Pending"
                       ? "text-yellow-500"
                       : order.status === "delivered"
-                      ? "text-green-600"
-                      : "text-gray-600"
-                  }`}
+                        ? "text-green-600"
+                        : "text-gray-600"
+                    }`}
                 >
                   {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                 </p>
