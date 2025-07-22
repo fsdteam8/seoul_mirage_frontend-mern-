@@ -129,7 +129,7 @@ export default function ComingSoon() {
   }, [api]);
 
   return (
-    <section className="py-12 px-4 md:px-6 lg:px-8" id="coming-soon">
+    <section className="py-5 px-1 md:px-6 lg:px-8 container mx-auto" id="coming-soon">
       <div className="container mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">

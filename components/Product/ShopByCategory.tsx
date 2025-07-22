@@ -118,7 +118,7 @@ export default function ShopByCategory() {
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#ebcad04d]">
-      <div className="container mx-auto">
+      <div className="container mx-auto py-5 px-1 md:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-black mb-8">Shop by Category</h2>
 
         {isLoading ? (

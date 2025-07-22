@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import BestSellers from "../BestSerllers";
 import { toast } from "sonner";
 import { useCartStore } from "@/store/cart-store";
+import { Skeleton } from "../ui/skeleton";
 
 export interface Media {
   id: number;
@@ -91,7 +92,7 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
     setQuantity((prev) => Math.max(1, prev + change));
   };
 
-  const { data, error, isLoading } = useQuery<ProductDetailsResponse>({
+  const { data, error } = useQuery<ProductDetailsResponse>({
     queryKey: ["productDetails", productId],
     queryFn: async () => {
       const res = await fetch(
@@ -110,13 +111,77 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
 
   const productDetails = data?.data;
 
-  if (isLoading)
-    return <div className="container mx-auto px-4 py-8">Loading...</div>;
+  // if (isLoading){}
+  // return <div className="container mx-auto px-4 py-8">Loading...</div>;
 
   if (error || !productDetails)
     return (
       <div className="container mx-auto px-4 py-8">
-        Error loading product details. Please try again later.
+        <div className="container mx-auto px-4 py-8">
+          <Skeleton className="h-5 w-32 mb-6" />
+
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Left: Image Gallery */}
+            <div className="space-y-4">
+              {/* Main Image */}
+              <Skeleton className="aspect-square w-full rounded-lg" />
+
+              {/* Thumbnails */}
+              <div className="hidden lg:flex gap-2">
+                {Array(4)
+                  .fill(0)
+                  .map((_, i) => (
+                    <Skeleton key={i} className="w-20 h-20 rounded-lg" />
+                  ))}
+              </div>
+
+              <div className="lg:hidden flex gap-2 overflow-x-auto pb-2">
+                {Array(4)
+                  .fill(0)
+                  .map((_, i) => (
+                    <Skeleton key={i} className="w-16 h-16 rounded-lg flex-shrink-0" />
+                  ))}
+              </div>
+            </div>
+
+            {/* Right: Product Info */}
+            <div className="space-y-6">
+              {/* Product Name */}
+              <Skeleton className="h-8 w-3/4" />
+
+              {/* Ratings */}
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1">
+                  {Array(5)
+                    .fill(0)
+                    .map((_, i) => (
+                      <Skeleton key={i} className="w-4 h-4 rounded-full" />
+                    ))}
+                </div>
+                <Skeleton className="w-16 h-4" />
+              </div>
+
+              {/* Price & Discount */}
+              <div className="flex items-center gap-4">
+                <Skeleton className="h-6 w-24" />
+                <Skeleton className="h-6 w-20" />
+              </div>
+
+              {/* Description */}
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+
+              {/* Quantity Selector */}
+              <Skeleton className="w-32 h-10 rounded-lg" />
+
+              {/* Add to Cart Button */}
+              <Skeleton className="h-12 w-full rounded-lg" />
+            </div>
+          </div>
+        </div>
       </div>
     );
 
@@ -198,8 +263,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
                     className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${selectedImageIndex === index
-                        ? "border-gray-900"
-                        : "border-gray-200"
+                      ? "border-gray-900"
+                      : "border-gray-200"
                       }`}
                   >
                     <Image
@@ -221,8 +286,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
                     className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${selectedImageIndex === index
-                        ? "border-gray-900"
-                        : "border-gray-200"
+                      ? "border-gray-900"
+                      : "border-gray-200"
                       }`}
                   >
                     <Image
@@ -270,8 +335,8 @@ export default function ProductDetails({ productId }: ProductDetailsProps) {
                     <Star
                       key={i}
                       className={`w-4 h-4 ${i < Math.floor(product?.rating)
-                          ? "fill-black text-black"
-                          : "text-gray-300"
+                        ? "fill-black text-black"
+                        : "text-gray-300"
                         }`}
                     />
                   ))}
