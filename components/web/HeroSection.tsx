@@ -1,15 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { DictionaryType } from "@/dictionaries/dictionaries";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 interface Props {
   dict: DictionaryType;
+  locale: "en" | "ar";
 }
-export default function HeroSection({ dict }: Props) {
+export default function HeroSection({ dict, locale }: Props) {
   return (
     <section className="relative min-h-screen w-full  overflow-hidden">
       {/* Background Video */}
-      
+
       <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
@@ -28,15 +30,24 @@ export default function HeroSection({ dict }: Props) {
       <div className="relative z-10   flex min-h-screen items-center ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[60px]">
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[60px]",
+                locale == "ar" ? "text-right" : ""
+              )}
+            >
               {dict.home.banner.title}
             </h1>
 
-            <p className="text-lg text-white sm:text-xl md:text-2xl font-semibold mt-[30px] lg:w-[738px]">
+            <p
+              className={cn(
+                "text-lg text-white sm:text-xl md:text-2xl font-semibold mt-[30px] lg:w-[638px]",
+                locale == "ar" ? "text-right" : "text-left"
+              )}
+            >
               {dict.home.banner.desc}
             </p>
-
-            <div className="mt-[60px] flex gap-4 sm:gap-6">
+            <div className={cn("mt-[60px] flex gap-4 sm:gap-6",locale == "ar" ? "justify-end" : "")}>
               <Link href="/products">
                 <Button
                   size="lg"

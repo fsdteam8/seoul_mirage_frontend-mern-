@@ -8,7 +8,7 @@ const page = async ({ params }: { params: { lang: string } }) => {
 
   return (
     <div>
-      <About_Section dict={dict} />
+      <About_Section dict={dict} locale={lang as "en" | "ar"} />
     </div>
   );
 };

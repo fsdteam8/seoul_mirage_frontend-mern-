@@ -1,12 +1,14 @@
 "use client";
 import { DictionaryType } from "@/dictionaries/dictionaries";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 interface Props {
   dict: DictionaryType;
+ locale: "en" | "ar"
 }
 
-export default function About_Section({ dict }: Props) {
+export default function About_Section({ dict,locale }: Props) {
 
   return (
     <div className="w-full">
@@ -15,13 +17,13 @@ export default function About_Section({ dict }: Props) {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-[80px] items-center">
             <div className="order-2 lg:order-1">
-              <h2 className="text-3xl sm:text-4xl lg:text-[60px] font-semibold text-[#000000CC] mb-6 lg:mb-[30px]">
+              <h2 className={cn("text-3xl sm:text-4xl lg:text-[60px]  font-semibold text-[#000000CC] mb-6 lg:mb-[30px]",locale == 'ar' ? "text-end" : "")}>
                 {dict?.about["Our-Story"].title1}{" "}
                 <span className="font-bold">
                   {dict?.about["Our-Story"].title2}
                 </span>
               </h2>
-              <p className="text-base sm:text-lg lg:text-[18px] text-[#000000CC]  leading-[120%] font-normal">
+              <p className={cn("text-base sm:text-lg lg:text-[18px] text-[#000000CC]  leading-[120%] font-normal",locale == 'ar' ? "text-end" : "")}>
                 {dict?.about["Our-Story"].desc}
               </p>
             </div>
@@ -55,12 +57,12 @@ export default function About_Section({ dict }: Props) {
               />
             </div>
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[60px] font-medium text-gray-[#000000CC] mb-6 lg:mb-8">
+              <h2 className={cn("text-3xl sm:text-4xl lg:text-[60px] font-medium text-gray-[#000000CC] mb-6 lg:mb-8",locale == 'ar' ? "text-end" : "")}>
                 {dict?.about["Our-Journey"].title1}{" "}
                 {dict?.about["Our-Journey"].title2}
               </h2>
               <div className="space-y-4 sm:space-y-6">
-                <p className="text-base sm:text-[24px] md:text-[18px] text-[#000000CC] leading-[120%] font-normal">
+                <p className={cn("text-base sm:text-[24px] md:text-[18px] text-[#000000CC] leading-[120%] font-normal",locale == 'ar' ? "text-end" : "")}>
                   {dict?.about["Our-Journey"].desc}
                 </p>
                 {/* <p className="text-base sm:text-[24px] md:text-[18px] text-[#000000CC] leading-[120%] font-normal mt-[30px]">
@@ -76,14 +78,14 @@ export default function About_Section({ dict }: Props) {
           {/* Our Philosophy Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-12 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[60px]  text-[#000000] font-medium mb-6 lg:mb-[60px]">
+              <h2 className={cn("text-3xl sm:text-4xl lg:text-[60px]  text-[#000000] font-medium mb-6 lg:mb-[60px]",locale == "ar" ? "text-end" : "")}>
                 {dict?.about["Our-Philosophy"].title1}
               </h2>
-              <p className="text-base sm:text-[24px] md:text-[18px] text-[#000000] leading-[120%] mb-8 lg:mb-12">
+              <p className={cn("text-base sm:text-[24px] md:text-[18px] text-[#000000] leading-[120%] mb-8 lg:mb-12",locale == "ar" ? 'text-end' : "")}>
                 {dict?.about["Our-Philosophy"].desc}
               </p>
 
-              <div className="space-y-6 lg:space-y-8">
+              <div className={cn("space-y-6 lg:space-y-8",locale == 'ar' ? "text-end" : "" )}>
                 <div className="border-l-4 border-[#000000] pl-4 sm:pl-6">
                   <h3 className="text-xl sm:text-[40px] font-semibold text-[#000000] mb-2 sm:mb-[30px]">
                     {dict?.about["Our-Philosophy"]["Curated-with-Purpose"].title}
@@ -135,7 +137,7 @@ export default function About_Section({ dict }: Props) {
       {/* Our Ingredients Section */}
       <section className="bg-[#F9E4CB] py-8 md:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 lg:mb-16">
+          <div className="text-center mb-8 lg:mb-16 ">
             <h2 className="text-3xl sm:text-4xl lg:text-[60px]  text-[#000000cc] font-medium mb-4 lg:mb-[30px]">
               {dict.about["Our-Ingredients"].title}
             </h2>

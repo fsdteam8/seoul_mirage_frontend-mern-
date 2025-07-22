@@ -20,9 +20,11 @@ const tabs = [
 
 interface Props {
   dict: DictionaryType;
+  locale: "en" | "ar";
+
 }
 
-export default function HomePageContainer({ dict }: Props) {
+export default function HomePageContainer({ dict,locale }: Props) {
   const [activeTab, setActiveTab] = useState("bestsellers");
 
   return (
@@ -67,7 +69,7 @@ export default function HomePageContainer({ dict }: Props) {
         <ShopByCategory />
       </div>
 
-      <OurSkinCare dict={dict} />
+      <OurSkinCare dict={dict} locale={locale} />
       <TestimonialCarousel  dict={dict}/>
     </div>
   );

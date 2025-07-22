@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
 import { DictionaryType } from "@/dictionaries/dictionaries";
+import { cn } from "@/lib/utils";
 
 // 1. Zod Schema
 const loginSchema = z.object({
@@ -28,9 +29,10 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 interface Props {
   dict: DictionaryType;
+  locale : "en" | "ar"
 }
 
-export default function Login({ dict }: Props) {
+export default function Login({ dict,locale }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -95,7 +97,7 @@ export default function Login({ dict }: Props) {
           </div>
 
           {/* Form Card */}
-          <div className="space-y-4">
+          <div className={cn("space-y-4",locale == 'ar' ? 'text-end' : '' )}>
             {/* Email Field */}
             <div className="space-y-2">
               <Label

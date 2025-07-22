@@ -8,7 +8,7 @@ const page = async ({ params }: { params: { lang: string } }) => {
     const dict = await getDictionary(lang as "en" | "ar");
   return (
     <div>
-      <Login dict={dict} />
+      <Login dict={dict} locale={lang as "en" | "ar"}/>
     </div>
   );
 };
