@@ -200,6 +200,7 @@ export const useCartStore = create<CartStore>()(
           ),
         })),
 
+        
       clearCart: () => set({ items: [] }),
 
       getTotalItems: () =>
