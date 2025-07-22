@@ -229,9 +229,9 @@ export default function Footer({ lang, dict }: Props) {
             <h3 className="font-medium text-xl sm:text-2xl md:text-3xl lg:text-[32px] text-[#000000CC] mb-3 md:mb-4">
               Skincare
             </h3>
-            <ul>
+            <ul className="space-y-2 md:space-y-3">
               {data?.Skincare?.slice(0, 5).map((item) => (
-                <li key={item.id}>
+                <li key={item.id} >
                   <Link
                     href={generateHref("category", item.name)}
                     className="text-sm sm:text-base lg:text-base text-[#000000CC] font-normal hover:text-[#F092B0] transition-colors"
