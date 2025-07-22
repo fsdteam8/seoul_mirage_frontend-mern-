@@ -26,8 +26,8 @@ export default function AccountPage() {
         )}
 
         {activeTabs === "order-history" && (
-          <div className="lg:p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
+          <div className="mb-5">
+            <h2 className="text-2xl font-bold text-gray-900 my-10 ">
               Order History
             </h2>
             <OrderCard />

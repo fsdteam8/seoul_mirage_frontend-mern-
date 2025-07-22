@@ -14,6 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import NotFoundComponent from "@/components/order-history-empty-state";
 
 const OrderCard = () => {
   const session = useSession();
@@ -66,104 +67,104 @@ const OrderCard = () => {
     );
   }
 
-  if (orderData.length === 0) {
-    return (
-      <Alert variant="destructive">
-        <AlertTitle>Not Found</AlertTitle>
-        <AlertDescription>
-          You have no order history available at the moment.
-        </AlertDescription>
-      </Alert>
-    );
-  }
-
   return (
     <>
-      <div className="space-y-6 ">
-        {orderData.map((order) => (
-          <div
-            key={order.id}
-            className="w-full mx-auto border rounded-xl shadow-sm p-4 space-y-4 text-sm sm:text-base"
-          >
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between">
-              <div className="space-y-1">
-                <p className="font-medium">Order #{order.id}</p>
-                <p className="text-gray-500 text-sm">
-                  {new Date(order.createdAt).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-              <div className="flex flex-col sm:items-end sm:text-right mt-2 sm:mt-0">
-                <p
-                  className={`font-medium ${order.status === "Pending"
-                      ? "text-yellow-500"
-                      : order.status === "delivered"
-                        ? "text-green-600"
-                        : "text-gray-600"
-                    }`}
+      <div className="container mx-auto">
+        {orderData.length === 0 ? (
+          <NotFoundComponent />
+        ) : (
+          <>
+            <div className="space-y-6 ">
+              {orderData.map((order) => (
+                <div
+                  key={order.id}
+                  className="w-full mx-auto border rounded-xl shadow-sm p-4 space-y-4 text-sm sm:text-base"
                 >
-                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                </p>
-                <p className="text-gray-800 font-semibold text-sm mt-1">
-                  ${parseFloat(order.total).toFixed(2)}
-                </p>
-              </div>
-            </div>
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row justify-between">
+                    <div className="space-y-1">
+                      <p className="font-medium">Order #{order.id}</p>
+                      <p className="text-gray-500 text-sm">
+                        {new Date(order.createdAt).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <div className="flex flex-col sm:items-end sm:text-right mt-2 sm:mt-0">
+                      <p
+                        className={`font-medium ${order.status === "Pending"
+                          ? "text-yellow-500"
+                          : order.status === "delivered"
+                            ? "text-green-600"
+                            : "text-gray-600"
+                          }`}
+                      >
+                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                      </p>
+                      <p className="text-gray-800 font-semibold text-sm mt-1">
+                        ${parseFloat(order.total).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
 
-            {/* Items */}
-            <div className="space-y-1">
-              <div className="flex justify-between text-gray-700">
-                <span>Items ({order.items})</span>
-                <span>${parseFloat(order.total).toFixed(2)}</span>
-              </div>
-              {order.promocode && (
-                <div className="flex justify-between text-gray-700">
-                  <span>Promocode: {order.promocode.name}</span>
-                  <span>Applied</span>
+                  {/* Items */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-gray-700">
+                      <span>Items ({order.items})</span>
+                      <span>${parseFloat(order.total).toFixed(2)}</span>
+                    </div>
+                    {order.promocode && (
+                      <div className="flex justify-between text-gray-700">
+                        <span>Promocode: {order.promocode.name}</span>
+                        <span>Applied</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Button */}
+                  <div>
+                    <Link href={`/order/details/${order.id}`}>
+                      <button className="w-full border rounded-md py-2 text-center text-gray-700 hover:bg-gray-100 transition">
+                        View Order Details
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
 
-            {/* Button */}
-            <div>
-              <Link href={`/order/details/${order.id}`}>
-                <button className="w-full border rounded-md py-2 text-center text-gray-700 hover:bg-gray-100 transition">
-                  View Order Details
-                </button>
-              </Link>
-            </div>
-          </div>
-        ))}
+            {/* Pagination */}
+            <Pagination className="mt-6">
+              <PaginationContent>
+                <PaginationItem className="cursor-pointer">
+                  <PaginationPrevious
+                    onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                    className={page <= 1 ? "pointer-events-none  opacity-50" : ""}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <span className="px-4 py-2 border rounded-md text-sm text-gray-700">
+                    Page {currentPage} of {lastPage}
+                  </span>
+                </PaginationItem>
+                <PaginationItem className="cursor-pointer">
+                  <PaginationNext
+                    onClick={() => setPage((prev) => Math.min(prev + 1, lastPage))}
+                    className={
+                      page >= lastPage ? "pointer-events-none  opacity-50" : ""
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </>
+        )
+
+        }
       </div>
 
-      {/* Pagination */}
-      <Pagination className="mt-6">
-        <PaginationContent>
-          <PaginationItem className="cursor-pointer">
-            <PaginationPrevious
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              className={page <= 1 ? "pointer-events-none  opacity-50" : ""}
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <span className="px-4 py-2 border rounded-md text-sm text-gray-700">
-              Page {currentPage} of {lastPage}
-            </span>
-          </PaginationItem>
-          <PaginationItem className="cursor-pointer">
-            <PaginationNext
-              onClick={() => setPage((prev) => Math.min(prev + 1, lastPage))}
-              className={
-                page >= lastPage ? "pointer-events-none  opacity-50" : ""
-              }
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
     </>
   );
 };
