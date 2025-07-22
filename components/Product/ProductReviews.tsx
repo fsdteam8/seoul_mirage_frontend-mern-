@@ -258,12 +258,12 @@ export default function ProductReviews({ productId }: ReviewsSectionProps) {
           ) : reviewData.length > 0 ? (
             <div className="flex flex-col gap-6 min-w-[500px]">
               {reviewData.map((review) => (
-                <div key={review.id} className="border-b border-gray-400 pb-6">
+                <div key={review?.id} className="border-b border-gray-400 pb-6">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                       <AvatarImage
-                        src={review.userAvatar || "/placeholder.svg"}
-                        alt={review.userName}
+                        src={review?.userAvatar || "/placeholder.svg"}
+                        alt={review?.userName}
                       />
                       <AvatarFallback>
                         <User className="w-5 h-5" />
@@ -272,19 +272,19 @@ export default function ProductReviews({ productId }: ReviewsSectionProps) {
 
                     <div className="flex-1 min-w-0">
                       <div className="mb-2">
-                        <StarRating rating={review.rating} />
+                        <StarRating rating={review?.rating} />
                       </div>
 
                       <p className="text-gray-700 text-sm sm:text-base mb-3 leading-relaxed">
-                        {review.comment}
+                        {review?.comment}
                       </p>
 
                       <div className="text-sm text-gray-500">
                         <p className="font-medium text-gray-900">
-                          {review.user.name}
+                          {review?.user?.name}
                         </p>
                         <p>
-                          {new Date(review.createdAt).toLocaleString("en-US", {
+                          {new Date(review?.createdAt).toLocaleString("en-US", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",

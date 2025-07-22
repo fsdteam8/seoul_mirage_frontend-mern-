@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense >
           <AllProduct />
         </Suspense>
       </div>
