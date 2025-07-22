@@ -179,6 +179,7 @@ import ShippingInformation from "./_components/shipping-information";
 import ShippingDetails from "./_components/shipping-details";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface PageProps {
   params: { id: string };
@@ -207,7 +208,46 @@ const Page = ({ params }: PageProps) => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="min-h-screen bg-[#f5e6d3] py-8">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
+        {/* Header */}
+        <div className="space-y-2">
+          <Skeleton className="h-6 w-40" />
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-8 w-32" />
+        </div>
+
+        {/* Tab Buttons */}
+        <div className="flex space-x-4 pt-2">
+          <Skeleton className="h-8 w-20" />
+          <Skeleton className="h-8 w-20" />
+        </div>
+
+        {/* Order Items */}
+        <div className="space-y-4 pt-4">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex space-x-4">
+              <Skeleton className="h-20 w-20 rounded-md" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-4 w-1/4" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Pricing Section */}
+        <div className="border-t pt-4 space-y-2">
+          <Skeleton className="h-4 w-1/3" />
+          <Skeleton className="h-4 w-1/3" />
+          <Skeleton className="h-4 w-1/3" />
+          <Skeleton className="h-6 w-1/2" />
+        </div>
+      </div>
+    </div>
+  </div>;
   if (error) return <div>Error: {(error as Error).message}</div>;
   if (!data?.data) return <div>No order data found</div>;
 

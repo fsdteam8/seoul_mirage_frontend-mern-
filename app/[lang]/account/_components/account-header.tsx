@@ -8,7 +8,7 @@ export default function AccountHeader() {
   const setActiveTab = useTabStore((state) => state.setActiveTab);
 
   return (
-    <div className="mb-8">
+    <div className="mb-5">
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">My Account</h1>
       <div className="flex gap-3">
         <Button
