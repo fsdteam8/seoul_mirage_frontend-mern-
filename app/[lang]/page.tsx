@@ -11,8 +11,8 @@ const Page = async ({ params }: { params: { lang: string } }) => {
   return (
     <div>
       {/* Hero Section */}
-      <HeroSection dict={dict} />
-      <HomePageContainer dict={dict} />
+      <HeroSection dict={dict} locale={lang as "en" | "ar"} />
+      <HomePageContainer dict={dict} locale={lang as "en" | "ar"} />
     </div>
   );
   

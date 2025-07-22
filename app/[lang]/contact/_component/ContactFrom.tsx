@@ -9,11 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { DictionaryType } from "@/dictionaries/dictionaries";
+import { cn } from "@/lib/utils";
 interface Props {
   dict: DictionaryType;
+  locale: "en" | "ar"
 }
 
-export default function ContactForm({ dict }: Props) {
+export default function ContactForm({ dict, locale }: Props) {
   const [formDatas, setFormData] = useState({
     name: "",
     email: "",
@@ -77,7 +79,7 @@ export default function ContactForm({ dict }: Props) {
           {/* Form Section */}
           <div className="order-2 lg:order-1 w-full mb-[20PX]">
             <div className="w-full max-w-2xl">
-              <div className="mb-6 sm:mb-8">
+              <div className={cn("mb-6 sm:mb-8",locale == 'ar' ? 'text-end' : '')}>
                 <h3 className="text-xl sm:text-2xl font-bold text-[#000000CC] mb-3">
                   {dict.contactus.title1}
                 </h3>
@@ -86,7 +88,7 @@ export default function ContactForm({ dict }: Props) {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <form onSubmit={handleSubmit} className={cn("space-y-4 sm:space-y-6",locale == 'ar' ? 'text-end' : '')}>
                 <div>
                   <Label
                     htmlFor="name"

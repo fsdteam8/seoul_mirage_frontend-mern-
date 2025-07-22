@@ -121,7 +121,6 @@ export const authOptions: NextAuthOptions = {
 
             const data = await res.json();
 
-            console.log(data)
             if (!data?.token || !data?.user) {
 
               return false;
@@ -137,7 +136,7 @@ export const authOptions: NextAuthOptions = {
             user.updatedAt = data.user.updated_at;
             user.token = data.token;
           } else if (account.provider === "facebook") {
-            console.log(profile)
+
             const res = await fetch(
               `${process.env.NEXT_PUBLIC_API_URL}/api/auth/third-party/jwt-process`,
               {

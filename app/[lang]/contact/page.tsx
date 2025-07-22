@@ -11,9 +11,9 @@ const page = async ({ params }: { params: { lang: string } }) => {
     
   return (
     <div>
-      <ContactForm dict={dict}/>
+      <ContactForm dict={dict} locale={lang as "en" | "ar"} />
       <ContactInfo dict={dict}/>
-      <FAQSection dict={dict}/>
+      <FAQSection dict={dict} locale={lang as "en" | "ar"}/>
     </div>
   )
 }

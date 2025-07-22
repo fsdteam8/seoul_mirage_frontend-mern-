@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { DictionaryType } from "@/dictionaries/dictionaries";
+import { cn } from "@/lib/utils";
 
 // Zod Schema
 const loginSchema = z
@@ -39,10 +40,11 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 interface Props {
   dict: DictionaryType
+  locale : "en" | "ar"
 }
 
 
-export default function SignUp({ dict }: Props) {
+export default function SignUp({ dict,locale }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -108,7 +110,7 @@ export default function SignUp({ dict }: Props) {
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-md space-y-9"
+          className={cn("w-full max-w-md space-y-9", locale == "ar" ? "text-end" : "")}
         >
           {/* Social Login Buttons */}
           <div className="space-y-4">
@@ -263,7 +265,7 @@ export default function SignUp({ dict }: Props) {
               </div>
 
               {/* Terms */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center  justify-between">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="remember-me" {...register("rememberMe")} />
                   <Label

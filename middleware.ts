@@ -9,6 +9,10 @@ const defaultLocale = "en";
 const locales = ["en", "ar"];
 
 function getLocale(request: NextRequest) {
+  const cookieLocale = request.cookies.get("preferredLocale")?.value;
+  if (cookieLocale && locales.includes(cookieLocale)) {
+    return cookieLocale;
+  }
   const acceptedLanguage = request.headers.get("accept-language") ?? undefined;
   const headers = { "accept-language": acceptedLanguage };
 
