@@ -24,7 +24,7 @@ function StarRating({
   const stars = [];
   for (let i = 1; i <= maxStars; i++) {
     if (rating >= i) {
-      stars.push(<Star key={i} className="w-4 h-4 fill-black" />);
+      stars.push(<Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500 " />);
     } else if (rating >= i - 0.5) {
       stars.push(
         <StarHalf key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
@@ -116,7 +116,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
-                    <StarRating rating={Number(product?.reviews_avg_rating) || 0} />
+                    <StarRating  rating={Number(product?.reviews_avg_rating) || 0} />
                     <span className="text-sm font-medium">
                       {product?.reviews_avg_rating !== undefined &&
                         product?.reviews_avg_rating !== null
