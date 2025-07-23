@@ -71,15 +71,16 @@ export default function ContactForm({ dict, locale }: Props) {
   return (
     <section className="py-8 sm:py-12 lg:py-0">
       <div className="container mx-auto px-4 mt-10 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[60px] font-bold text-[#000000CC] pb-6 sm:pb-8 lg:pb-10">
-          {dict.contactus.title}
-        </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
           {/* Form Section */}
           <div className="order-2 lg:order-1 w-full mb-[20PX]">
+            <h2 className={cn("text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[60px] font-bold text-[#000000CC] pb-6 sm:pb-8 lg:pb-10",locale == 'ar' ? "text-end" : "")}>
+              {dict.contactus.title}
+            </h2>
+
             <div className="w-full max-w-2xl">
-              <div className={cn("mb-6 sm:mb-8",locale == 'ar' ? 'text-end' : '')}>
+              <div className={cn("mb-6 sm:mb-8", locale == 'ar' ? 'text-end' : '')}>
                 <h3 className="text-xl sm:text-2xl font-bold text-[#000000CC] mb-3">
                   {dict.contactus.title1}
                 </h3>
@@ -88,7 +89,7 @@ export default function ContactForm({ dict, locale }: Props) {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className={cn("space-y-4 sm:space-y-6",locale == 'ar' ? 'text-end' : '')}>
+              <form onSubmit={handleSubmit} className={cn("space-y-4 sm:space-y-6", locale == 'ar' ? 'text-end' : '')}>
                 <div>
                   <Label
                     htmlFor="name"
@@ -152,7 +153,7 @@ export default function ContactForm({ dict, locale }: Props) {
                     {mutation.isPending ? (
                       <div className="flex items-center gap-2">
                         <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      {dict.contactus.loadingBtn}                       
+                        {dict.contactus.loadingBtn}
                       </div>
                     ) : (
                       dict.contactus.button

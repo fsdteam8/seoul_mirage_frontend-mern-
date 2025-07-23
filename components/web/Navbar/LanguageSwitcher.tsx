@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 // Define available locales
@@ -17,9 +17,12 @@ const locales = [
 ];
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
   const pathname = usePathname();
   const [currentLocale, setCurrentLocale] = useState("en");
+
+  //  const langREloade =  () => {
+
+  // }
 
   // Extract current locale from pathname
   useEffect(() => {
@@ -34,10 +37,11 @@ export default function LanguageSwitcher() {
     // Update URL with new locale
     const newPath = pathname.replace(/^\/[^\/]+/, `/${newLocale}`);
     // Set cookie to persist locale preference
-    document.cookie = `preferredLocale=${newLocale}; path=/; max-age=${
-      60 * 60 * 24 * 365
-    }`;
-    router.push(newPath);
+    document.cookie = `preferredLocale=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365
+      }`;
+    // router.push(newPath);
+    // Force full page reload
+    window.location.href = newPath;
   };
 
   return (
