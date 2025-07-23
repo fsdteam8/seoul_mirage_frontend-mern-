@@ -95,8 +95,12 @@ import {
 } from "@/components/ui/carousel";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DictionaryType } from "@/dictionaries/dictionaries";
+interface Props {
+  dict: DictionaryType;
 
-export default function ComingSoon() {
+}
+export default function ComingSoon({dict}:Props) {
   const { data, error, isLoading } = useQuery<ProductResponse>({
     queryKey: ["comingsoon"],
     queryFn: async () => {
@@ -134,7 +138,7 @@ export default function ComingSoon() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl md:text-2xl font-medium text-gray-900">
-            Coming soon
+            {dict.home.product.title3}
           </h2>
           <Link
             href="/products"

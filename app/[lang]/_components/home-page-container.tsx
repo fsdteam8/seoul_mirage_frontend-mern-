@@ -52,15 +52,15 @@ export default function HomePageContainer({ dict,locale }: Props) {
       <div className="mt-8 px-4">
         {activeTab === "bestsellers" && (
           <div>
-            <BestSellers />
+            <BestSellers dict={dict} />
           </div>
         )}
         {activeTab === "newarrive" && (
           <div>
-            <NewArrive />
+            <NewArrive dict={dict} />
           </div>
         )}
-        {activeTab === "trd" && <div>{<ComingSoon />}</div>}
+        {activeTab === "trd" && <div>{<ComingSoon dict={dict} />}</div>}
       </div>
 
       {/* Static Sections */}

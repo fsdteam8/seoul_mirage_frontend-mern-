@@ -6,6 +6,11 @@
       "shopNowButtonLabel": "Shop Now",
       "aboutUsButtonLabel": "About Us"
     },
+    "product":{
+    "title1":"Bestsellers",
+    "title2":"New Arrive",
+    "title3":"Coming soon"
+    },
     "skincare": {
       "title": "Our Skincare Philosophy",
       "desc1": "Seoul Mirage was born from a deep appreciation for Korean skincare innovation and the belief that effective products should be accessible to everyone.",
