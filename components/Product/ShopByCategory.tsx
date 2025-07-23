@@ -16,13 +16,14 @@ import {
 } from "@/components/ui/carousel";
 import { useCallback, useEffect, useState } from "react";
 import type { CarouselApi } from "@/components/ui/carousel";
+import { DictionaryType } from "@/dictionaries/dictionaries";
 
 // Category Card Component
 function CategoryCard({ name, image, }: Category) {
   const router = useRouter();
- const pathname = usePathname();
+  const pathname = usePathname();
 
- const handleClick = () => {
+  const handleClick = () => {
     const formatted = name?.toLowerCase().replace(/\s+/g, "-");
     router.push(`${pathname}/products?${formatted}`);
   };
@@ -71,9 +72,12 @@ function CategoryCard({ name, image, }: Category) {
     </div>
   );
 }
+interface Props {
+  dict: DictionaryType;
 
+}
 // Main Component
-export default function ShopByCategory() {
+export default function ShopByCategory({ dict }: Props) {
   const [api, setApi] = useState<CarouselApi>();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -119,7 +123,7 @@ export default function ShopByCategory() {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#ebcad04d]" id="category">
       <div className="container mx-auto py-5 px-1 md:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-black mb-8">Shop by Category</h2>
+        <h2 className="text-3xl font-bold text-black mb-8">{dict.home.category.title}</h2>
 
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">

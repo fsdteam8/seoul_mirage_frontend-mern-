@@ -66,7 +66,7 @@ export default function HomePageContainer({ dict,locale }: Props) {
       {/* Static Sections */}
       {/* <NewArrive /> */}
       <div className="mb-32 mt-32">
-        <ShopByCategory />
+        <ShopByCategory  dict={dict} />
       </div>
 
       <OurSkinCare dict={dict} locale={locale} />

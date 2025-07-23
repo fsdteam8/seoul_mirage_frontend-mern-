@@ -35,7 +35,7 @@ export default async function RootLayout({
   const dict = await getDictionary(lang as "en" | "ar");
   
   return (
-    <html lang="en" className={`${newFont.className} scroll-smooth`}>
+    <html lang="en" dir={lang === "ar" ? "rtl" : "ltr"} className={`${newFont.className} scroll-smooth`}>
       <body className={`${newFont.variable} antialiased`}>
         <Providers>
           <AuthProvider>
