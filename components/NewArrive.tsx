@@ -14,8 +14,15 @@ import {
 } from "@/components/ui/carousel";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DictionaryType } from "@/dictionaries/dictionaries";
 
-export default function NewArrive() {
+interface Props {
+  dict: DictionaryType;
+
+}
+
+
+export default function NewArrive({dict}:Props) {
   const { data, error, isLoading } = useQuery<ProductResponse>({
     queryKey: ["newProducts"],
     queryFn: async () => {
@@ -55,7 +62,7 @@ export default function NewArrive() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl md:text-2xl font-medium text-gray-900">
-            New Arrive
+           {dict.home.product.title2}
           </h2>
           <Link
             href="/products"
