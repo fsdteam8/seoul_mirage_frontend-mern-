@@ -28,8 +28,9 @@ export default function HeroSection({ dict, locale }: Props) {
 
       {/* Content Overlay */}
       <div className="relative z-10   flex min-h-screen items-center ">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
+        <div className={cn("container mx-auto  px-4 sm:px-6 lg:px-8",locale == 'ar' ? "  flex justify-end" : "")}>
+          <div className="max-w-2xl  ">
+          
             <h1
               className={cn(
                 "text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[60px]",
