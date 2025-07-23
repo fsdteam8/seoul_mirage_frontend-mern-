@@ -46,7 +46,7 @@ export default function LanguageSwitcher() {
 
   return (
     <Select value={currentLocale} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="rounded-md border border-gray-300 px-3 py-1 focus:ring-2 focus:ring-blue-500">
+      <SelectTrigger className="rounded-md border border-gray-300 px-3 w-20 py-1 focus:ring-2 focus:ring-blue-500">
         <SelectValue placeholder="Select Language" />
       </SelectTrigger>
       <SelectContent>

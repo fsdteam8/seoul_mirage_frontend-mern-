@@ -292,6 +292,7 @@ export default function Navbar({ lang, dict }: Props) {
                       Cart ({items.length})
                     </Link>
                   </div>
+                  <LanguageSwitcher />
                 </nav>
               </SheetContent>
             </Sheet>
