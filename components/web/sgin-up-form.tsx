@@ -267,7 +267,7 @@ export default function SignUp({ dict,locale }: Props) {
               {/* Terms */}
               <div className="flex items-center  justify-between">
                 <div className="flex items-center space-x-2">
-                  <Checkbox id="remember-me" {...register("rememberMe")} />
+                  <Checkbox id="remember-me" {...register("rememberMe")} required />
                   <Label
                     htmlFor="remember-me"
                     className="text-sm font-normal text-gray-700 cursor-pointer"
