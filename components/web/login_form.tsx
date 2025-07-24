@@ -29,10 +29,10 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 interface Props {
   dict: DictionaryType;
-  locale : "en" | "ar"
+  locale: "en" | "ar"
 }
 
-export default function Login({ dict,locale }: Props) {
+export default function Login({ dict, locale }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -66,7 +66,7 @@ export default function Login({ dict,locale }: Props) {
     } catch (error) {
       setIsLoading(false);
       console.log("Login error:", error);
-      toast.error( "Login failed. Please check your credentials and try again.");
+      toast.error("Incorrect Password");
     } finally {
       setIsLoading(false);
     }
@@ -97,7 +97,7 @@ export default function Login({ dict,locale }: Props) {
           </div>
 
           {/* Form Card */}
-          <div className={cn("space-y-4",locale == 'ar' ? 'text-end' : '' )}>
+          <div className={cn("space-y-4", locale == 'ar' ? 'text-end' : '')}>
             {/* Email Field */}
             <div className="space-y-2">
               <Label
@@ -179,7 +179,7 @@ export default function Login({ dict,locale }: Props) {
               type="submit"
               className="w-full h-11 bg-black hover:bg-gray-800 text-white font-normal rounded-md transition-colors"
             >
-              {isLoading ? dict.login["signing-in"] :dict.login.sgin}
+              {isLoading ? dict.login["signing-in"] : dict.login.sgin}
             </Button>
           </div>
 
@@ -252,7 +252,7 @@ export default function Login({ dict,locale }: Props) {
                 href="/privacy-policy"
                 className="text-gray-900 hover:text-gray-700 underline"
               >
-             {dict.login.poc}
+                {dict.login.poc}
               </Link>
               .
             </p>

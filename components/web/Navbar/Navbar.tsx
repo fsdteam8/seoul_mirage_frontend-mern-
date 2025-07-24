@@ -33,7 +33,7 @@ import { useCartStore } from "@/store/cart-store";
 import { useTabStore } from "@/store/useTabStore";
 import type { CategorizedData } from "@/types/CategoryDataTypeByNavbar";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronDown, Menu, Search, ShoppingBag, User } from "lucide-react";
+import { ChevronDown, Menu, Search, ShoppingBag, ShoppingCart, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -288,8 +288,8 @@ export default function Navbar({ lang, dict }: Props) {
                         {dict.home.navbar.login}
                       </Link>
                     )}
-                    <Link href="/cart" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm text-black hover:bg-gray-100">
-                      Cart ({items.length})
+                    <Link  href="/cart" onClick={() => setIsMobileMenuOpen(false)} className=" flex items-center gap-3  py-2 rounded-md text-sm text-black hover:bg-gray-100">
+                      <ShoppingCart width={20} hanging={20}/>  Cart ({items.length})
                     </Link>
                   </div>
                   <LanguageSwitcher />
