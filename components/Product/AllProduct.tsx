@@ -12,6 +12,8 @@ import {
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ProductPageSkeleton } from "./ProductSkeleton";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { DictionaryType } from "@/dictionaries/dictionaries";
 
 // ✅ Types
 interface Category {
@@ -50,7 +52,14 @@ interface ProductApiResponse {
   };
 }
 
-export default function AllProducts() {
+interface Props {
+  dict: DictionaryType;
+  locale?: "en" | "ar";
+
+}
+
+export default function AllProducts({ dict }: Props) {
+
   const [selectedCategory, setSelectedCategory] = useState<string>("All Product");
   const [selecteRateing, setSelecteRateing] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("Featured");
@@ -143,71 +152,67 @@ export default function AllProducts() {
 
 
 
+
+
       <div className="bg-[#F5E6D3] border-b border-gray-200">
-        <div className="container mx-auto px-4 py-6 space-y-4 lg:flex lg:justify-between ">
+        <div className="container mx-auto px-4 gap-4 py-4 space-y-4 lg:space-y-0 lg:flex lg:items-center lg:justify-between">
           {/* Categories Scrollable */}
-          <div
-            className="flex space-x-6 overflow-x-auto px-1 sm:px-4 scrollbar-hide scroll-snap-x"
-            role="tablist"
-            aria-label="Product Categories"
-          >
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  setSelectedCategory(category);
-                  setCurrentPage(1);
-                }}
-                className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap scroll-snap-align-start ${selectedCategory === category
+          <ScrollArea className="w-full max-w-full overflow-x-auto whitespace-nowrap">
+            <div
+              className="flex space-x-6 px-1 py-2 sm:px-4 scroll-snap-x"
+              role="tablist"
+              aria-label="Product Categories"
+            >
+              {categories.map((category: string) => (
+                <button
+                  key={category}
+                  onClick={() => {
+                    setSelectedCategory(category)
+                    setCurrentPage(1)
+                  }}
+                  className={`flex-shrink-0 text-sm font-medium transition-colors whitespace-nowrap scroll-snap-align-start ${selectedCategory === category
                     ? "text-black border-b-2 border-black pb-1"
                     : "text-gray-600 hover:text-black"
-                  }`}
-                role="tab"
-                aria-selected={selectedCategory === category}
-                tabIndex={selectedCategory === category ? 0 : -1}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+                    }`}
+                  role="tab"
+                  aria-selected={selectedCategory === category}
+                  tabIndex={selectedCategory === category ? 0 : -1}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
 
           {/* Filters */}
-          <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between gap-4">
-            {/* Rating + Sort (Group them for smaller layout) */}
-            <div className="flex flex-wrap items-center gap-4">
-              {/* Rating Filter */}
-              <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium hidden md:block">Rating:</span>
-                <Select value={selecteRateing} onValueChange={setSelecteRateing}>
-                  <SelectTrigger className="w-28 sm:w-40 bg-white">
-                    <SelectValue placeholder="All" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All</SelectItem>
-                    <SelectItem value="5">5</SelectItem>
-                    <SelectItem value="4">4</SelectItem>
-                    <SelectItem value="3">3</SelectItem>
-                    <SelectItem value="2">2</SelectItem>
-                    <SelectItem value="1">1</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+          <div className="flex  lg:flex-row items-center gap-4 mt-4 lg:mt-0">
+            {/* Rating Filter */}
+            <Select value={selecteRateing} onValueChange={setSelecteRateing}>
+              <SelectTrigger className="w-28 sm:w-40 bg-white">
+                <SelectValue placeholder="All" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{dict.products.rting.all}</SelectItem>
+                <SelectItem value="5">{dict.products.rting[5]}</SelectItem>
+                <SelectItem value="4">{dict.products.rting[4]}</SelectItem>
+                <SelectItem value="3">{dict.products.rting[3]}</SelectItem>
+                <SelectItem value="2">{dict.products.rting[2]}</SelectItem>
+                <SelectItem value="1">{dict.products.rting[1]}</SelectItem>
+              </SelectContent>
+            </Select>
 
-              {/* Sort Filter */}
-              <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium hidden md:block">Sort:</span>
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-28 sm:w-40 bg-white">
-                    <SelectValue placeholder="Sort by" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Featured">Featured</SelectItem>
-                    <SelectItem value="Price: Low to High">Price: Low to High</SelectItem>
-                    <SelectItem value="Price: High to Low">Price: High to Low</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+            {/* Sort Filter */}
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-28 sm:w-40 bg-white">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Featured">{dict.products.priceFilter.all}</SelectItem>
+                <SelectItem value="Price: Low to High">{dict.products.priceFilter.low}</SelectItem>
+                <SelectItem value="Price: High to Low">{dict.products.priceFilter.high}</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
         </div>
