@@ -70,7 +70,6 @@ export default function Navbar({ lang, dict }: Props) {
       return res.json();
     },
   });
-
   const generateHref = (type: string, name: string) =>
     `/${lang}/products?${name.toLowerCase().replace(/\s+/g, "-")}`;
 
@@ -183,16 +182,16 @@ export default function Navbar({ lang, dict }: Props) {
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem>
                     <Link href="/account" onClick={() => setActiveTab("account")} className="w-full font-raleway">
-                      My Account
+                    {dict.home.navbar.dropdwon.myaccount}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link href="/account" onClick={() => setActiveTab("order-history")} className="w-full font-raleway">
-                      Order History
+               {dict.home.navbar.dropdwon.orderhistory}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => signOut()} className="text-red-600 font-raleway">
-                    Log Out
+           {dict.home.navbar.dropdwon.logout}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -274,13 +273,13 @@ export default function Navbar({ lang, dict }: Props) {
                     {token || session.status === "authenticated" ? (
                       <>
                         <Link href="/account" onClick={() => { setActiveTab("account"); setIsMobileMenuOpen(false); }} className="block px-3 py-2 rounded-md text-sm text-black hover:bg-gray-100">
-                          My Account
+                          {dict.home.navbar.dropdwon.myaccount}
                         </Link>
                         <Link href="/account" onClick={() => { setActiveTab("order-history"); setIsMobileMenuOpen(false); }} className="block px-3 py-2 rounded-md text-sm text-black hover:bg-gray-100">
-                          Order History
+                          {dict.home.navbar.dropdwon.orderhistory}
                         </Link>
                         <button onClick={() => { signOut(); setIsMobileMenuOpen(false); }} className="block px-3 py-2 rounded-md text-sm text-red-600 hover:bg-gray-100">
-                          Log Out
+                          {dict.home.navbar.dropdwon.logout}
                         </button>
                       </>
                     ) : (

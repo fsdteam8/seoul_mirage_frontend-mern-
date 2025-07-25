@@ -12,11 +12,7 @@ import ShopByCategory from "@/components/Product/ShopByCategory";
 import TestimonialCarousel from "@/components/web/Testimonial";
 import { DictionaryType } from "@/dictionaries/dictionaries";
 
-const tabs = [
-  { id: "bestsellers", label: "Best Sellers" },
-  { id: "newarrive", label: "New Arrivals" },
-  { id: "trd", label: "Coming soon" },
-];
+
 
 interface Props {
   dict: DictionaryType;
@@ -24,7 +20,12 @@ interface Props {
 
 }
 
-export default function HomePageContainer({ dict,locale }: Props) {
+export default function HomePageContainer({ dict, locale }: Props) {
+  const tabs = [
+    { id: "bestsellers", label: dict.home.product.title1 },
+    { id: "newarrive", label: dict.home.product.title2 },
+    { id: "trd", label: dict.home.product.title3 },
+  ];
   const [activeTab, setActiveTab] = useState("bestsellers");
 
   return (
@@ -36,11 +37,10 @@ export default function HomePageContainer({ dict,locale }: Props) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 min-w-[90px] lg:px-3 lg:py-2 py-2 px-1 text-sm lg:text-md rounded-lg font-medium border text-center transition-all duration-200 ${
-                activeTab === tab.id
-                  ? "bg-[#F092B0] text-white"
-                  : "bg-white text-black border-[#F092B0] hover:bg-gray-100"
-              }`}
+              className={`flex-1 min-w-[90px] lg:px-3 lg:py-2 py-2 px-1 text-sm lg:text-md rounded-lg font-medium border text-center transition-all duration-200 ${activeTab === tab.id
+                ? "bg-[#F092B0] text-white"
+                : "bg-white text-black border-[#F092B0] hover:bg-gray-100"
+                }`}
             >
               {tab.label}
             </button>
@@ -66,11 +66,11 @@ export default function HomePageContainer({ dict,locale }: Props) {
       {/* Static Sections */}
       {/* <NewArrive /> */}
       <div className="mb-32 mt-32">
-        <ShopByCategory  dict={dict} />
+        <ShopByCategory dict={dict} />
       </div>
 
       <OurSkinCare dict={dict} locale={locale} />
-      <TestimonialCarousel  dict={dict}/>
+      <TestimonialCarousel dict={dict} />
     </div>
   );
 }

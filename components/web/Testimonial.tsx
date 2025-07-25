@@ -84,7 +84,7 @@ export default function TestimonialCarousel({ dict }: Props) {
     <div className="w-full container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col items-center mb-10">
         <div className="text-[18px] font-medium text-muted-foreground mb-4">
-          500 + Happy Users
+        {dict.home.happy}
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary">
           {dict.testomonial.title}

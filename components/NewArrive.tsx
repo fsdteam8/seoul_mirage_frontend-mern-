@@ -68,7 +68,7 @@ export default function NewArrive({dict}:Props) {
             href="/products"
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
           >
-            <span className="text-sm md:text-base">View all products</span>
+            <span className="text-sm md:text-base">{dict?.home.product.viewAll}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
           </Link>
         </div>

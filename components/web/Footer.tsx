@@ -112,7 +112,7 @@ export default function Footer({ lang, dict }: Props) {
               disabled={mutation.isPending}
               className="bg-[#F092B0] hover:bg-[#F092B0]/90 text-[#000000] text-sm px-[32px] py-[16px] whitespace-nowrap rounded-full"
             >
-              {mutation.isPending ? "Subscribing..." : "Subscribe"}
+              {mutation.isPending ?  dict.footer["Our-Community"].button.subscribing : dict.footer["Our-Community"].button.buttonLabel} 
             </Button>
           </div>
         </div>
@@ -227,7 +227,7 @@ export default function Footer({ lang, dict }: Props) {
           {/* Skincare Links */}
           <div className="flex flex-col items-center">
             <h3 className="font-medium text-xl sm:text-2xl md:text-3xl lg:text-[32px] text-[#000000CC] mb-3 md:mb-4">
-              Skincare
+              {dict.home.navbar.skincare}
             </h3>
             <ul className="space-y-2 md:space-y-3">
               {data?.Skincare?.slice(0, 5).map((item) => (

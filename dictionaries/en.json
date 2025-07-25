@@ -6,13 +6,14 @@
       "shopNowButtonLabel": "Shop Now",
       "aboutUsButtonLabel": "About Us"
     },
-    "product":{
-    "title1":"Bestsellers",
-    "title2":"New Arrive",
-    "title3":"Coming soon"
+    "product": {
+      "title1": "Bestsellers",
+      "title2": "New Arrive",
+      "title3": "Coming soon",
+      "viewAll":"View all products"
     },
-    "category":{
-      "title":"Shop by Category"
+    "category": {
+      "title": "Shop by Category"
     },
     "skincare": {
       "title": "Our Skincare Philosophy",
@@ -25,8 +26,14 @@
       "collections": "Collections",
       "skincare": "Skincare",
       "contact": "Contact",
-      "login": "Login"
-    }
+      "login": "Login",
+      "dropdwon": {
+        "myaccount": "My Account",
+        "orderhistory": "Order History",
+        "logout": "Logout"
+      }
+    },
+    "happy":"500 + Happy Users"
   },
   "about": {
     "Our-Story": {
@@ -82,7 +89,8 @@
       "desc": "Subscribe to our newsletter for exclusive offers, skincare tips, and new product announcements.",
       "button": {
         "placeholder": "Your email address",
-        "buttonLabel": "Subscribe"
+        "buttonLabel": "Subscribe",
+        "subscribing": "Subscribing..."
       }
     },
     "link": {
@@ -112,7 +120,11 @@
     "button": "Let Us Know",
     "loadingBtn": "Sending...",
     "Reach-Us": {
-      "title": "Other Ways to Reach Us"
+      "title": "Other Ways to Reach Us",
+      "address": "Office 43-44, Owned by Dubai Municipality, Al Fahidi, Bur Dubai",
+      "email": "Email",
+      "phone": "Phone",
+      "addressT": "Address"
     },
     "Questions": {
       "title": "Frequently Asked Questions",
@@ -201,34 +213,55 @@
     "sgin": "Sign in.",
     "sginup": "Sign in."
   },
-   "cart":{
-    "title":"Shopping Cart",
-    "btn":"Continue Shopping",
-    "quantity":"Quantity",
-    "order":"Order Summary",
-    "subtotal":"Subtotal",
-    "total":"Total",
-    "checkout":"Proceed to Checkout"
+  "cart": {
+    "title": "Shopping Cart",
+    "btn": "Continue Shopping",
+    "quantity": "Quantity",
+    "order": "Order Summary",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Proceed to Checkout"
   },
-  "checkout":{
-    "title":"Checkout",
-    "info":"Shipping Information",
-    "flname":"Full name *",
-    "lsname":"Last name *",
-    "email":"Email *",
-    "phone":"Phone *",
-    "apartment":"Apartment, suite, etc. (optional)",
-    "city":"City *",
-    "country":"Country *",
-    "postal":"Postal Code *",
-    "state":"State/Province *",
-    "method":"Shipping Method",
-    "payment":"Payment →",
-    "summary":"Order Summary",
-    "subtotal":"Subtotal",
-    "shipping":"Shipping",
-    "promo":"Promo Code",
-    "redeem":"Redeem",
-    "total":"Total"
+  "checkout": {
+    "title": "Checkout",
+    "info": "Shipping Information",
+    "flname": "Full name *",
+    "lsname": "Last name *",
+    "email": "Email *",
+    "phone": "Phone *",
+    "apartment": "Apartment, suite, etc. (optional)",
+    "city": "City *",
+    "country": "Country *",
+    "postal": "Postal Code *",
+    "state": "State/Province *",
+    "method": "Shipping Method",
+    "payment": "Payment →",
+    "summary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "promo": "Promo Code",
+    "redeem": "Redeem",
+    "total": "Total"
+  },
+  "products": {
+    "priceFilter": {
+      "low": "Price: Low to high",
+      "high": "Price: High to low",
+      "all": "All"
+    },
+    "rting": {
+      "all": "All",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5"
+    }
+  },
+  "account":{
+    "title":"My Account",
+    "tabbtn":{
+      "btn1":""
+    }
   }
 }
