@@ -28,7 +28,7 @@ export default function HeroSection({ dict, locale }: Props) {
 
       {/* Content Overlay */}
       <div className="relative z-10   flex min-h-screen items-center ">
-        <div className={cn("container mx-auto  px-4 sm:px-6 lg:px-8",locale == 'ar' ? "  flex justify-end" : "")}>
+        <div className={cn("container mx-auto  px-4 sm:px-6 lg:px-8",locale == 'ar' ? "  flex " : "")}>
           <div className="max-w-2xl  ">
           
             <h1
@@ -48,7 +48,7 @@ export default function HeroSection({ dict, locale }: Props) {
             >
               {dict.home.banner.desc}
             </p>
-            <div className={cn("mt-[60px] flex gap-4 sm:gap-6",locale == "ar" ? "justify-end" : "")}>
+            <div className={cn("mt-[60px] flex gap-4 sm:gap-6",locale == "ar" ? "" : "")}>
               <Link href="/products">
                 <Button
                   size="lg"
