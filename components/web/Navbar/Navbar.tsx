@@ -79,8 +79,17 @@ export default function Navbar({ lang, dict }: Props) {
         <div className="flex items-center justify-between py-6 lg:py-12 lg:h-16 h-32 w-full">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image
+            {/* <Image
               src="/logo.high-quality.svg"
+              width={900}
+              height={900}
+              quality={90}
+              alt="Sara & Paige Collections"
+              className="w-[145px] h-[300px] md:w-[140px] md:h-[140px]"
+              style={{ imageRendering: "auto" }}
+            /> */}
+             <Image
+              src="/finalLogo.jpeg"
               width={900}
               height={900}
               quality={90}
